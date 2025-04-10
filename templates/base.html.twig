@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="turbo-cache-control" content="no-cache">
+    <title>{% block title %}Blog Littéraire{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="{{ asset('build/app.js') }}" defer></script>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+
+<body class="font-serif bg-gray-50 text-gray-900">
+<header class="flex flex-col md:flex-row justify-between items-center p-4 bg-white border-b border-gray-200 shadow-sm mb-8">
+    <div class="mb-2 md:mb-0">
+        <a href="{{ path('app_homepage') }}" class="text-3xl font-bold text-accent hover:underline">Le Codex d'Uuki</a>
+    </div>
+
+    <form method="get" action="{{ path('recherche') }}" class="flex items-center space-x-2">
+        <input type="text" name="q" placeholder="Rechercher un article..." class="border border-gray-300 rounded px-2 py-1">
+        <button type="submit" class="text-accent hover:text-accent-dark">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+
+    <div class="text-sm text-gray-700 mt-2 md:mt-0">
+        {% if app.user %}
+            Connecté en tant que <strong>{{ app.user.email }}</strong>
+            {% if 'ROLE_ADMIN' in app.user.roles %}
+                <span class="ml-2 px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Admin</span>
+                <a href="{{ path('app_admin_article_index') }}" class="ml-4 underline text-accent">Backoffice</a>
+            {% endif %}
+            <a href="{{ path('app_logout') }}" class="ml-4 underline text-red-500">Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="underline text-accent">Se connecter</a>
+        {% endif %}
+    </div>
+</header>
+
+<main class="px-4 max-w-4xl mx-auto">
+    {% block body %}{% endblock %}
+</main>
+
+<footer class="text-center mt-12 py-4 border-t border-gray-300 text-gray-500 text-sm">
+    &copy; {{ "now"|date("Y") }} — Le Codex d'Uuki. Tous droits réservés.
+</footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }} | Blog Littéraire{% endblock %}
+
+{% block body %}
+    <div class="min-h-screen bg-parchment text-ink font-serif px-4 sm:px-6 lg:px-8 py-12">
+        <div class="max-w-3xl mx-auto">
+            <article>
+                <h1 class="text-4xl font-bold text-accent mb-4">{{ article.title }}</h1>
+                <p class="text-sm text-gray-500 mb-6">Publié le {{ article.createdAt|date('d M Y') }}</p>
+
+                <div class="prose prose-lg prose-slate max-w-none">
+                    {{ article.content|raw }}
+                </div>
+            </article>
+        </div>
+    </div>
+{% endblock %}

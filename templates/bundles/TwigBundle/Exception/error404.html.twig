@@ -1,0 +1,12 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable - Le Codex d’Uuki{% endblock %}
+
+{% block body %}
+    <h1>🕯️ Ce feuillet est introuvable</h1>
+    <p>Cette page n’existe pas dans le Codex d’Uuki.</p>
+    <p>Peut-être s’est-elle effacée avec le temps... ou n’a-t-elle jamais été écrite.</p>
+    <a href="{{ path('app_homepage') }}">⬅️ Retour au Codex</a>
+{% endblock %}

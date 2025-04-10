@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'article{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-[#fdf6e3] p-8 rounded-xl shadow-md max-w-3xl mx-auto">
+            <h1 class="text-4xl font-serif text-center mb-6 border-b pb-2">📜 {{ article.title }}</h1>
+            <div class="mt-8 flex justify-between items-center">
+                <a href="{{ path('app_admin_article_index') }}"
+                   class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded shadow text-sm">
+                    ← Retour à la liste
+                </a>
+
+                <div class="flex gap-4 items-center">
+                    <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}"
+                       class="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow text-sm">
+                        <i class="fas fa-edit mr-2"></i> Modifier
+                    </a>
+
+                    {{ include('admin/article/_delete_form.html.twig') }}
+                </div>
+                <div>
+                    <h2 class="font-semibold text-gray-600">Statut :</h2>
+                    <span class="px-2 py-1 rounded text-sm
+                    {{ article.status.value == 'publié' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800' }}">
+                    {{ article.status.value|capitalize }}
+                </span>
+                </div>
+            </div>
+            <div class="space-y-4 text-gray-800 font-light text-lg">
+                <div>
+                    <h2 class="font-semibold text-gray-600">Créé le :</h2>
+                    <p>{{ article.createdAt ? article.createdAt|date('d/m/Y H:i') : '–' }}</p>
+                </div>
+
+                <div>
+                    <h2 class="font-semibold text-gray-600">Mis à jour le :</h2>
+                    <p>{{ article.updatedAt ? article.updatedAt|date('d/m/Y H:i') : '–' }}</p>
+                </div>
+                <div>
+                    <h2 class="font-semibold text-gray-600">Contenu :</h2>
+                    <td class="prose max-w-none">{% if article.content %}{{ article.content|raw }}{% endif %}</td>
+
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

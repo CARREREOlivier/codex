@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultats pour "{{ query }}"{% endblock %}
+
+{% block body %}
+    <h2 class="text-2xl font-semibold mb-4">Résultats pour "{{ query }}"</h2>
+
+    {% if articles is empty %}
+        <p class="text-gray-500">Aucun article trouvé.</p>
+    {% else %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full border border-gray-300 rounded shadow-sm">
+                <thead class="bg-gray-100">
+                <tr>
+                    <th class="text-left px-4 py-2 border-b">Titre</th>
+                    <th class="text-left px-4 py-2 border-b">Date de publication</th>
+                    <th class="text-left px-4 py-2 border-b">Lien</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for article in articles %}
+                    <tr class="hover:bg-gray-100 transition-colors">
+                        <td class="px-4 py-2 border-b font-medium">{{ article.title }}</td>
+                        <td class="px-4 py-2 border-b">
+                            {{ article.createdAt ? article.createdAt|date('d/m/Y') : '—' }}
+                        </td>
+                        <td class="px-4 py-2 border-b">
+                            <a href="{{ path('article_show', {'slug': article.slug}) }}" class="text-accent underline">
+                                Voir l'article
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

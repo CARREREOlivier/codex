@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    @apply bg-[#fefaf1] text-gray-800 font-serif;
+}
+
+

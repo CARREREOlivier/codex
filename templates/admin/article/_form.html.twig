@@ -1,0 +1,40 @@
+
+    <div></div> {# Colonne vide à gauche #}
+
+    <div data-controller="tinymce" class="col-span-1 bg-[#fdf6e3] p-8 rounded-2xl shadow-lg">
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="space-y-6">
+            <div>
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title, {
+                    attr: {
+                        class: 'w-full bg-white border border-black rounded px-4 py-2'
+                    }
+                }) }}
+                {{ form_errors(form.title) }}
+            </div>
+
+            <div>
+                {{ form_label(form.content) }}
+                {{ form_widget(form.content, {
+                    attr: {
+                        class: 'tinymce w-full bg-white border border-black rounded px-4 py-2',
+                        rows: 20
+                    }
+                }) }}
+                {{ form_errors(form.content) }}
+            </div>
+
+            {{ form_row(form.status) }}
+
+
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+
+    <div></div> {# Colonne vide à droite #}
+
