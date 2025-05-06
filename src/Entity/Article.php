@@ -39,6 +39,9 @@ class Article
     #[ORM\Column(type: Types::STRING, enumType: ArticleStatus::class)]
     private ArticleStatus $status;
 
+    #[ORM\ManyToOne(inversedBy: 'article')]
+    private ?Oeuvre $oeuvre = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +110,18 @@ class Article
     public function setStatus(ArticleStatus $status): static
     {
         $this->status = $status;
+        return $this;
+    }
+
+    public function getOeuvre(): ?Oeuvre
+    {
+        return $this->oeuvre;
+    }
+
+    public function setOeuvre(?Oeuvre $oeuvre): static
+    {
+        $this->oeuvre = $oeuvre;
+
         return $this;
     }
 }
