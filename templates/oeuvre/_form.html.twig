@@ -1,4 +1,32 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div data-controller="tinymce" class="col-span-1 bg-[#fdf6e3] p-8 rounded-2xl shadow-lg">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="space-y-6">
+        <div>
+            {{ form_label(form.titre) }}
+            {{ form_widget(form.titre, {
+                attr: {
+                    class: 'w-full bg-white border border-black rounded px-4 py-2'
+                }
+            }) }}
+            {{ form_errors(form.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {
+                attr: {
+                    class: 'tinymce w-full bg-white border border-black rounded px-4 py-2',
+                    rows: 20
+                }
+            }) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        {{ form_row(form.type) }}
+
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+    {{ form_end(form) }}
+</div>
