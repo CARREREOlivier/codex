@@ -16,11 +16,11 @@
                         <div class="text-gray-800">{{ oeuvre.description|raw }}</div>
 
                         <div class="flex justify-end space-x-4 mt-4">
-                            <a href="{{ path('app_oeuvre_show', {'id': oeuvre.id}) }}"
+                            <a href="{{ path('app_oeuvre_show', {'slug': oeuvre.slug}) }}"
                                class="text-blue-600 hover:text-blue-800" title="Voir">
                                 📖
                             </a>
-                            <a href="{{ path('app_oeuvre_edit', {'id': oeuvre.id}) }}"
+                            <a href="{{ path('app_oeuvre_edit', {'slug': oeuvre.slug}) }}"
                                class="text-yellow-600 hover:text-yellow-800" title="Modifier">
                                 ✏️
                             </a>

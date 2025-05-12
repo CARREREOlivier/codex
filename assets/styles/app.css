@@ -7,4 +7,8 @@ body {
     @apply bg-[#fefaf1] text-gray-800 font-serif;
 }
 
+.btn-red {
+    @apply bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow text-sm;
+}
+
 

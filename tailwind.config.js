@@ -18,5 +18,9 @@ module.exports = {
         },
     },
 
+    safelist: [
+        { pattern: /bg-(red|orange|purple|blue|green)-[0-9]{3}/ },
+    ],
+
     plugins: [require('@tailwindcss/typography')],
 }

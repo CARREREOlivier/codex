@@ -1,38 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Oeuvre{% endblock %}
+{% block title %}Détail de l'œuvre{% endblock %}
 
 {% block body %}
-    <h1>Oeuvre</h1>
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-[#fdf6e3] p-8 rounded-xl shadow-md max-w-3xl mx-auto">
+            <h1 class="text-4xl font-serif text-center mb-6 border-b pb-2">🎨 {{ oeuvre.titre }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ oeuvre.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ oeuvre.titre |raw }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ oeuvre.type }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ oeuvre.description }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ oeuvre.slug }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="mt-8 flex justify-between items-center">
+                <a href="{{ path('app_oeuvre_index') }}"
+                   class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded shadow text-sm">
+                    ← Retour à la liste
+                </a>
 
-    <a href="{{ path('app_oeuvre_index') }}">back to list</a>
+                <div class="flex gap-4 items-center">
+                    <a href="{{ path('app_oeuvre_edit', {'slug': oeuvre.slug}) }}"
+                       class="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow text-sm">
+                        ✏️ Modifier
+                    </a>
 
-    <a href="{{ path('app_oeuvre_edit', {'id': oeuvre.id}) }}">edit</a>
+                    {{ include('oeuvre/_delete_form.html.twig') }}
+                </div>
+            </div>
 
-    {{ include('oeuvre/_delete_form.html.twig') }}
+            <div class="space-y-4 text-gray-800 font-light text-lg mt-6">
+                <div>
+                    <h2 class="font-semibold text-gray-600">Type :</h2>
+                    <p>{{ oeuvre.type }}</p>
+                </div>
+
+                <div>
+                    <h2 class="font-semibold text-gray-600">Slug :</h2>
+                    <p>{{ oeuvre.slug }}</p>
+                </div>
+
+                <div>
+                    <h2 class="font-semibold text-gray-600">Description :</h2>
+                    <div class="prose max-w-none">{{ oeuvre.description|raw }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -10,7 +10,7 @@
         "postcss": "^8.5.3",
         "postcss-loader": "^8.1.0",
         "regenerator-runtime": "^0.13.9",
-        "tailwindcss": "3",
+        "tailwindcss": "^3.4.17",
         "webpack": "^5.74.0",
         "webpack-cli": "^5.1.0",
         "webpack-notifier": "^1.15.0"
