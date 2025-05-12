@@ -39,7 +39,8 @@ class Article
     #[ORM\Column(type: Types::STRING, enumType: ArticleStatus::class)]
     private ArticleStatus $status;
 
-    #[ORM\ManyToOne(inversedBy: 'article')]
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Oeuvre $oeuvre = null;
 
     public function getId(): ?int

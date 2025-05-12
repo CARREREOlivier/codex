@@ -7,6 +7,11 @@
         <div class="max-w-3xl mx-auto">
             <article>
                 <h1 class="text-4xl font-bold text-accent mb-4">{{ article.title }}</h1>
+                {% if article.oeuvre %}
+                    {{ article.oeuvre.titre }}
+                {% else %}
+                    <em>Article Non Classé</em>
+                {% endif %}
                 <p class="text-sm text-gray-500 mb-6">Publié le {{ article.createdAt|date('d M Y') }}</p>
 
                 <div class="prose prose-lg prose-slate max-w-none">
