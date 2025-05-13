@@ -34,6 +34,10 @@ class Oeuvre
     #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'oeuvre')]
     private Collection $article;
 
+    #[ORM\OneToMany(mappedBy: 'oeuvre', targetEntity: Article::class)]
+    private Collection $articles;
+
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -100,6 +104,16 @@ class Oeuvre
     {
         return $this->article;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+
 
     public function addArticle(Article $article): static
     {

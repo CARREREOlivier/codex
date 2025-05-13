@@ -12,10 +12,14 @@
 
                     <div class="bg-white border border-[#e0dcd3] rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6">
                         <h2 class="text-2xl font-bold text-accent mb-2">{{ oeuvre.titre }}</h2>
+
                         <p class="text-gray-700 italic">{{ oeuvre.type }}</p>
                         <div class="text-gray-800">{{ oeuvre.description|raw }}</div>
 
                         <div class="flex justify-end space-x-4 mt-4">
+                            <div class="flex items-center text-gray-600 text-sm">
+                                📚 {{ oeuvre.articles|length }} article{{ oeuvre.articles|length > 1 ? 's' : '' }}
+                            </div>
                             <a href="{{ path('app_oeuvre_show', {'slug': oeuvre.slug}) }}"
                                class="text-blue-600 hover:text-blue-800" title="Voir">
                                 📖

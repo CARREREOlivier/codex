@@ -20,8 +20,15 @@ final class OeuvreController extends AbstractController
     #[Route(name: 'app_oeuvre_index', methods: ['GET'])]
     public function index(OeuvreRepository $oeuvreRepository): Response
     {
+        $oeuvres = $oeuvreRepository->createQueryBuilder('o')
+            ->leftJoin('o.articles', 'a')
+            ->addSelect('COUNT(a.id) AS HIDDEN articlesCount')
+            ->groupBy('o.id')
+            ->getQuery()
+            ->getResult();
+
         return $this->render('oeuvre/index.html.twig', [
-            'oeuvres' => $oeuvreRepository->findAll(),
+            'oeuvres' => $oeuvres,
         ]);
     }
 
@@ -62,6 +69,7 @@ final class OeuvreController extends AbstractController
 
         return $this->render('oeuvre/show.html.twig', [
             'oeuvre' => $oeuvre,
+            'articles'=>$oeuvre->getArticles(),
         ]);
     }
 
