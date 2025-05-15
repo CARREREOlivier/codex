@@ -1,5 +1,6 @@
 // tailwind.config.js
 module.exports = {
+    mode: 'jit',
     content: [
         './templates/**/*.html.twig',
         './assets/**/*.js',
@@ -20,7 +21,8 @@ module.exports = {
 
     safelist: [
         { pattern: /bg-(red|orange|purple|blue|green)-[0-9]{3}/ },
-    ],
+        { pattern: /shadow-.*/ },
+       ],
 
     plugins: [require('@tailwindcss/typography')],
 }

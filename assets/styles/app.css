@@ -45,3 +45,9 @@ body {
 .min-section-height {
     min-height: clamp(500px, 80vh, 1000px);
 }
+
+.card-parchment {
+    background-image: url('/public/uploads/texture_parchemin.webp');
+    background-size: cover;
+    background-blend-mode: multiply;
+}
