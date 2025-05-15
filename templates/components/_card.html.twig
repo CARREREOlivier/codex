@@ -1,5 +1,6 @@
 <div class="bg-white bg-opacity-80 backdrop-blur-md border border-[#e0dcd3] rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 text-ink">
-    {% block card_content %}
-        <!-- Contenu spécifique à chaque carte -->
-    {% endblock %}
+        {% block card_title %}{% endblock %}
+        {% block card_subtitle %}{% endblock %}
+        {% block card_content %}{% endblock %}
+        {% block card_footer %}{% endblock %}
 </div>
