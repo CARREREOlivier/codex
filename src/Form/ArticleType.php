@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Oeuvre;
 use App\Enum\ArticleStatus;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -27,15 +29,19 @@ class ArticleType extends AbstractType
                     'Publié' => ArticleStatus::PUBLIE,
                 ],
                 'choice_label' => function ($choice) {
-                    return match($choice) {
+                    return match ($choice) {
                         ArticleStatus::BROUILLON => 'Brouillon',
                         ArticleStatus::PUBLIE => 'Publié',
                         default => 'Inconnu',
                     };
                 },
-                'choice_value' => fn (?ArticleStatus $status) => $status?->value,
-            ]);
-        ;
+                'choice_value' => fn(?ArticleStatus $status) => $status?->value,
+            ])
+            ->add('oeuvre', EntityType::class, [
+            'class' => Oeuvre::class,
+            'choice_label' => 'titre', // ou le champ à afficher dans le select
+            'label' => 'Œuvre associée',
+        ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -3,12 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Oeuvre;
 use App\Enum\ArticleStatus;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ArticleController extends AbstractController
 {
@@ -35,4 +40,58 @@ class ArticleController extends AbstractController
         return new Response('Article créé');
     }
 
+    #[Route('/article/new/{oeuvre}', name: 'app_admin_article_new')]
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
+        Oeuvre $oeuvre = null
+    ): Response {
+        $article = new Article();
+
+        if ($oeuvre) {
+            $article->setOeuvre($oeuvre);
+        }
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+        $returnTo = $request->query->get('returnTo');
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Génération du slug à partir du titre de l’article
+            $slug = $slugger->slug($article->getTitle())->lower();
+            $article->setSlug($slug);
+            // Définir la date de création
+            $article->setCreatedAt(new \DateTimeImmutable());
+
+            //on vérfie si l'oeuvre a déjà un titre similaire en vérifiant le slug.
+            //ca évite d'avoir deux fois le même slug à cause d'un accent différent
+            $existingArticle = $entityManager->getRepository(Article::class)
+                ->findOneBy([
+                    'slug' => $article->getSlug(),
+                    'oeuvre' => $article->getOeuvre(),
+                ]);
+
+            if ($existingArticle) {
+                $this->addFlash('warning', 'Un article avec ce titre existe déjà. Veuillez modifier le titre ou vérifier la liste des articles.');
+
+                // Pas de redirection pour éviter d eperdre le texte, le formattage etc...
+                //  on réaffiche le formulaire avec les données déjà remplies
+                return $this->render('admin/article/new.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
+
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            return $this->redirect($returnTo ?? $this->generateUrl('app_homepage'));
+
+        }
+
+
+        return $this->render('admin/article/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

@@ -2,18 +2,20 @@
 
 namespace App\Entity;
 
+use AllowDynamicProperties;
 use App\Enum\ArticleStatus;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[AllowDynamicProperties] #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\Table(name: 'article')]
 class Article
 {
     public function __construct()
     {
         $this->status = ArticleStatus::BROUILLON;
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     #[ORM\Id]

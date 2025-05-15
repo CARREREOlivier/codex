@@ -20,38 +20,134 @@
 </head>
 
 <body class="font-serif bg-gray-50 text-gray-900">
-<header class="flex flex-col md:flex-row justify-between items-center p-4 bg-white border-b border-gray-200 shadow-sm mb-8">
-    <div class="mb-2 md:mb-0">
-        <a href="{{ path('app_homepage') }}" class="text-3xl font-bold text-accent hover:underline">Le Codex d'Uuki</a>
+<header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm p-4 flex flex-col md:flex-row justify-between items-center">
+    <div class="flex items-center space-x-8">
+        <a href="{{ path('app_homepage') }}" class="text-3xl font-bold text-accent hover:underline">
+            Le Codex d'Uuki
+        </a>
+        <!-- Icône Hamburger -->
+        <div class="md:hidden">
+            <button id="hamburger-btn" class="text-3xl text-accent focus:outline-none">
+                ☰
+            </button>
+        </div>
+        <!--menu caché qui slide-->
+        <div id="mobile-menu" class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+            <button id="close-menu" class="text-2xl text-red-600 p-4 float-right focus:outline-none">
+                ❌
+            </button>
+            <nav class="flex flex-col space-y-6 mt-16 px-6 text-lg">
+                <a href="{{ path('app_homepage') }}" class="hover:text-accent-dark">Accueil</a>
+                <a href="{{ path('app_oeuvre_index') }}" class="hover:text-accent-dark">Œuvres</a>
+                <a href="{{ path('app_admin_article_index') }}" class="hover:text-accent-dark">Articles</a>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="text-red-500 hover:text-red-700">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="hover:text-accent-dark">Se connecter</a>
+                {% endif %}
+            </nav>
+        </div>
+        <!-- menu qui se cache pour les smartphones/tablettes -->
+        <nav class="hidden md:flex space-x-6 text-lg">
+            <a href="{{ path('app_homepage') }}" class="hover:text-accent-dark">Accueil</a>
+            <a href="{{ path('app_oeuvre_index') }}" class="hover:text-accent-dark">Œuvres</a>
+            <a href="{{ path('app_admin_article_index') }}" class="hover:text-accent-dark">Articles</a>
+            <a href="{{ path('app_admin_article_index') }}" class="hover:text-accent-dark">A propos</a>
+            <a href="{{ path('app_admin_article_index') }}" class="hover:text-accent-dark">Contact</a>
+        </nav>
     </div>
 
-    <form method="get" action="{{ path('recherche') }}" class="flex items-center space-x-2">
-        <input type="text" name="q" placeholder="Rechercher un article..." class="border border-gray-300 rounded px-2 py-1">
-        <button type="submit" class="text-accent hover:text-accent-dark">
-            <i class="fas fa-search"></i>
-        </button>
-    </form>
-
-    <div class="text-sm text-gray-700 mt-2 md:mt-0">
+    <div class="mt-4 md:mt-0 text-sm text-gray-700 flex items-center space-x-4">
         {% if app.user %}
-            Connecté en tant que <strong>{{ app.user.email }}</strong>
+            <span>Connecté en tant que <strong>{{ app.user.email }}</strong></span>
             {% if 'ROLE_ADMIN' in app.user.roles %}
-                <span class="ml-2 px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Admin</span>
-                <a href="{{ path('app_admin_article_index') }}" class="ml-4 underline text-accent">Backoffice</a>
+                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Admin</span>
+                <a href="{{ path('app_admin_article_index') }}" class="underline text-accent">Backoffice</a>
             {% endif %}
-            <a href="{{ path('app_logout') }}" class="ml-4 underline text-red-500">Se déconnecter</a>
+            <a href="{{ path('app_logout') }}" class="underline text-red-500 hover:text-red-700">Se déconnecter</a>
         {% else %}
-            <a href="{{ path('app_login') }}" class="underline text-accent">Se connecter</a>
+            <a href="{{ path('app_login') }}" class="underline text-accent hover:text-accent-dark">Se connecter</a>
         {% endif %}
     </div>
 </header>
 
-<main class="px-4 max-w-4xl mx-auto">
-    {% block body %}{% endblock %}
-</main>
+
+{% block main_container %}
+    <main class="px-4 max-w-4xl mx-auto">
+        {% block body %}{% endblock %}
+    </main>
+{% endblock %}
 
 <footer class="text-center mt-12 py-4 border-t border-gray-300 text-gray-500 text-sm">
     &copy; {{ "now"|date("Y") }} — Le Codex d'Uuki. Tous droits réservés.
 </footer>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const video = document.querySelector('video');
+        if (video) {
+            video.playbackRate = 0.5; // Ralentir la vidéo
+
+            video.addEventListener('play', () => {
+                video.classList.add('fade-in');
+                setTimeout(() => video.classList.remove('fade-in'), 2000);
+            });
+
+            video.addEventListener('ended', () => {
+                video.classList.add('fade-out');
+            });
+
+            // Pour une boucle propre avec fade
+            video.addEventListener('timeupdate', () => {
+                if (video.duration - video.currentTime < 2) {
+                    video.classList.add('fade-out');
+                }
+            });
+
+            video.addEventListener('seeked', () => {
+                video.classList.remove('fade-out');
+                video.classList.add('fade-in');
+                setTimeout(() => video.classList.remove('fade-in'), 2000);
+            });
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const video = document.querySelector('video');
+        const overlay = document.getElementById('video-fade-overlay');
+
+        if (video && overlay) {
+            video.playbackRate = 0.5; // Ralentir la lecture
+
+            const fadeOut = () => overlay.style.opacity = 1;
+            const fadeIn = () => overlay.style.opacity = 0;
+
+            video.addEventListener('play', fadeIn);
+
+            video.addEventListener('timeupdate', () => {
+                if (video.duration - video.currentTime < 2) {
+                    fadeOut();
+                }
+            });
+
+            video.addEventListener('seeked', fadeIn);
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+    });
+</script>
 </html>

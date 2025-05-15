@@ -1,32 +1,118 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil | Le Codex d'Uuki{% endblock %}
+{% block main_container %}
+    {% block body %}
+        <!-- Vidéo plein écran en fond -->
+        <div class="relative h-screen w-full overflow-hidden">
+            <video autoplay muted loop playsinline
+                   class="absolute top-0 left-0 w-full h-full object-cover">
+                <source src="{{ asset('uploads/bg_grimoire.mp4') }}" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo en fond.
+            </video>
+            <div id="video-fade-overlay" class="video-overlay"></div>
 
-{% block body %}
-    <div class="min-h-screen bg-parchment text-ink font-serif px-4 sm:px-6 lg:px-8 py-12">
-        <div class="max-w-7xl mx-auto">
-            <header class="mb-16 text-center">
-                <h1 class="text-5xl font-bold mb-2">📚 Le Codex d'Uuki</h1>
-                <p class="italic text-lg">Nul ne sait vraiment qui est Uuki. Certains disent qu’il écrit depuis une tour oubliée.<br>D’autres, qu’il voyage entre les mondes à travers l’encre et les pages.<br> Ce qui est certain : ses mots laissent des traces.</p>
-            </header>
+            <!-- Overlay sombre pour lisibilité -->
+            <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60"></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {% for article in articles %}
-                    <div class="bg-white border border-[#e0dcd3] rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6">
-                        <h2 class="text-2xl font-bold text-accent mb-2">
-                            <a href="{{ path('article_show', { slug: article.slug }) }}" class="hover:underline">
-                                {{ article.title }}
-                            </a>
-                        </h2>
-                        <p class="text-sm text-gray-500 mb-3">Publié le {{ article.createdAt|date('d M Y') }}</p>
-                        <p class="text-base leading-relaxed first-letter:text-5xl first-letter:font-bold first-letter:float-left first-letter:mr-2 first-letter:leading-none first-letter:text-accent">
-                            {{ article.content|striptags|slice(0, 200)|replace({'&nbsp;': ' ', '&eacute;': 'é', '&agrave;': 'à', '&quot;': '"', '&rsquo;': '’'}) ~ '…' }}
-                        </p>
-                    </div>
-                {% else %}
-                    <p class="col-span-3 text-center">Aucun article pour l’instant…</p>
-                {% endfor %}
+            <!-- Contenu centré sur la vidéo -->
+            <div class="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">📚 Le Codex d'Uuki</h1>
+                <p class="italic text-lg max-w-2xl drop-shadow">
+                    Nul ne sait vraiment qui est Uuki. Certains disent qu’il écrit depuis une tour oubliée.<br>
+                    D’autres, qu’il voyage entre les mondes à travers l’encre et les pages.<br>
+                    <span class="font-bold">Ce qui est certain : ses mots laissent des traces.</span>
+                </p>
+                <a href="#articles"
+                   class="mt-8 bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition duration-300 ease-in-out">
+                    Découvrir les Articles
+                </a>
+                <a href="#oeuvres"
+                   class="mt-8 bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition duration-300 ease-in-out">
+                    Découvrir les Oeuvres
+                </a>
             </div>
         </div>
-    </div>
+        <!-- Séparateur en haut de la section Articles -->
+        <div class="flex items-center justify-center my-16">
+            <div class="border-t-2 border-[#3d2c20] w-1/4"></div>
+            <span class="mx-6 text-[#3d2c20] text-2xl">☙✦ ✧ ✦❧</span>
+            <div class="border-t-2 border-[#3d2c20] w-1/4"></div>
+        </div>
+
+        <!-- Section Articles -->
+        <section id="articles" class="relative w-screen overflow-hidden text-ink font-serif py-24 min-h-[60vh]">
+            <!--image de fond-->
+            <div class="absolute inset-0 w-full h-full">
+                <img src="{{ asset('uploads/bg_articles.webp') }}" alt="Fond Œuvres" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-[#3d2c20] bg-opacity-50"></div> <!-- Overlay avec ta couleur -->
+            </div>
+            <!--cartes-->
+            <div class="relative max-w-7xl mx-auto px-4 text-white">
+                <h2 class="text-3xl font-bold text-center mb-8">📰 Derniers Articles</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {% for article in articles %}
+                        <div class="bg-white bg-opacity-80 backdrop-blur-md border border-[#e0dcd3] rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 text-ink">
+                            <h2 class="text-2xl font-bold text-accent mb-2">
+                                <a href="{{ path('article_show', { slug: article.slug }) }}" class="hover:underline">
+                                    {{ article.title }}
+                                </a>
+                            </h2>
+                            <p class="text-sm text-gray-500 mb-3">Publié le {{ article.createdAt|date('d M Y') }}</p>
+                            <p class="text-base leading-relaxed">
+                                {{ article.content|striptags|slice(0, 200) ~ '…' }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!--bouton vers index des articles-->
+                <div class="text-center mt-8">
+                    <a href="{{ path('app_admin_article_index') }}"
+                       class="inline-block bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
+                        Voir tous les articles →
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Séparateur en haut de la section Œuvres -->
+        <div class="flex items-center justify-center my-16">
+            <div class="border-t-2 border-[#3d2c20] w-1/4"></div>
+            <span class="mx-6 text-[#3d2c20] text-2xl"> ☙✦ ✧ ✦❧</span>
+            <div class="border-t-2 border-[#3d2c20] w-1/4"></div>
+        </div>
+
+        <!--Section Oeuvres-->
+        <section id="oeuvres" class="relative w-screen overflow-hidden text-ink font-serif py-24 min-section-height">
+            <!--image de fond-->
+            <div class="absolute inset-0 w-full h-full">
+                <img src="{{ asset('uploads/bg_oeuvres.webp') }}" alt="Fond Œuvres" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-[#3d2c20] bg-opacity-50"></div> <!-- Overlay avec couleur de fondu -->
+            </div>
+            <!--cartes-->
+            <div class="relative max-w-7xl mx-auto px-4 text-white">
+                <h2 class="text-3xl font-bold text-center mb-8">📚 Œuvres Récentes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {% for oeuvre in oeuvres %}
+                        <div class="bg-white bg-opacity-80 backdrop-blur-md border border-[#e0dcd3] rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 text-ink">
+                            <h2 class="text-2xl font-bold text-accent mb-2">
+                                <a href="{{ path('app_oeuvre_show', { slug: oeuvre.slug }) }}" class="hover:underline">
+                                    {{ oeuvre.titre }}
+                                </a>
+                            </h2>
+                            <p class="text-base leading-relaxed">
+                                {{ oeuvre.description|striptags|slice(0, 200) ~ '…' }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!--bouton vers index des oeuvres-->
+                <div class="text-center mt-8">
+                    <a href="{{ path('app_oeuvre_index') }}"
+                       class="inline-block bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
+                        Voir toutes les œuvres →
+                    </a>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
 {% endblock %}

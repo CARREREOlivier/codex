@@ -1,40 +1,67 @@
+<div></div> {# Colonne vide à gauche #}
 
-    <div></div> {# Colonne vide à gauche #}
-
-    <div data-controller="tinymce" class="col-span-1 bg-[#fdf6e3] p-8 rounded-2xl shadow-lg">
-        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-        <div class="space-y-6">
-            <div>
-                {{ form_label(form.title) }}
-                {{ form_widget(form.title, {
-                    attr: {
-                        class: 'w-full bg-white border border-black rounded px-4 py-2'
-                    }
-                }) }}
-                {{ form_errors(form.title) }}
-            </div>
-
-            <div>
-                {{ form_label(form.content) }}
-                {{ form_widget(form.content, {
-                    attr: {
-                        class: 'tinymce w-full bg-white border border-black rounded px-4 py-2',
-                        rows: 20
-                    }
-                }) }}
-                {{ form_errors(form.content) }}
-            </div>
-
-            {{ form_row(form.status) }}
-
-
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">
-                {{ button_label|default('Enregistrer') }}
-            </button>
-        </div>
-        {{ form_end(form) }}
-
+<div data-controller="tinymce" class="col-span-1 bg-[#fdf6e3] p-8 rounded-2xl shadow-lg">
+    <!--message d'alerte en cas de doublon-->
+    {% for message in app.flashes('warning')|slice(0, 1) %}
+    <!--penser à corriger le pipe slice-->
+    <div class="bg-yellow-200 border-l-8 border-yellow-600 text-yellow-900 p-6 mb-6 rounded-xl shadow-xl animate-pulse"
+         role="alert">
+        <p class="text-2xl font-bold mb-2 flex items-center">
+            ⚠️ Attention !
+        </p>
+        <p class="text-lg mb-4">
+            {{ message }}
+        </p>
+        <button onclick="this.closest('div[role=alert]').remove();"
+                class="mt-4 bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-full shadow-lg text-base font-semibold transition duration-300 ease-in-out">
+            ✅ OK, j'ai compris !
+        </button>
+    </div>
+</div>
+{% endfor %}
+<!--forumaire pour nouvel article-->
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div class="space-y-6">
+    <div>
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title, {
+            attr: {
+                class: 'w-full bg-white border border-black rounded px-4 py-2'
+            }
+        }) }}
+        {{ form_errors(form.title) }}
+        {{ form_label(form.oeuvre) }}
+        {{ form_widget(form.oeuvre, {
+            attr: {
+                class: 'w-full bg-gray-200 border border-black rounded px-4 py-2',
+                readonly: 'readonly'
+            }
+        }) }}
+        {{ form_errors(form.oeuvre) }}
     </div>
 
-    <div></div> {# Colonne vide à droite #}
+    <div>
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {
+            attr: {
+                class: 'tinymce w-full bg-white border border-black rounded px-4 py-2',
+                rows: 20
+            }
+        }) }}
+        {{ form_errors(form.content) }}
+    </div>
+
+    {{ form_row(form.status) }}
+
+
+    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow"
+            onclick="this.disabled = true; this.form.submit();">
+        {{ button_label|default('Enregistrer') }}
+    </button>
+</div>
+{{ form_end(form) }}
+
+</div>
+
+<div></div> {# Colonne vide à droite #}
 
