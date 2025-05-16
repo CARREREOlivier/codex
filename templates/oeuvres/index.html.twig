@@ -16,24 +16,35 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {% for oeuvre in oeuvres %}
-                        <div class="bg-white bg-opacity-80 backdrop-blur-md border border-[#e0dcd3] rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 text-ink">
-                            <h2 class="text-2xl font-bold text-accent mb-2">
-                                {{ oeuvre.titre }}
-                            </h2>
+                        {% embed 'components/_card.html.twig' %}
+                            {% block card_title %}
+                                <h2 class="text-2xl font-bold text-accent mb-2 text-center">
+                                    <a href="{{ path('app_oeuvre_show', {'slug': oeuvre.slug}) }}" class="hover:underline">
+                                        {{ oeuvre.titre }}
+                                    </a>
+                                </h2>
+                            {% endblock %}
 
-                            <p class="text-gray-700 italic">{{ oeuvre.type }}</p>
-                            <div class="text-gray-800">{{ oeuvre.description|raw }}</div>
+                            {% block card_subtitle %}
+                                <p class="text-gray-700 italic text-center">{{ oeuvre.type }}</p>
+                            {% endblock %}
 
-                            <div class="flex justify-end space-x-4 mt-4">
-                                <div class="flex items-center text-gray-600 text-sm">
-                                    📚 {{ oeuvre.articles|length }} article{{ oeuvre.articles|length > 1 ? 's' : '' }}
+                            {% block card_content %}
+                                <div class="text-gray-800 text-justify">{{ oeuvre.description|raw }}</div>
+                            {% endblock %}
+
+                            {% block card_footer %}
+                                <div class="flex justify-end space-x-4 mt-4">
+                                    <div class="flex items-center text-gray-600 text-sm">
+                                        📚 {{ oeuvre.articles|length }} article{{ oeuvre.articles|length > 1 ? 's' : '' }}
+                                    </div>
+                                    <a href="{{ path('app_oeuvre_show', {'slug': oeuvre.slug}) }}"
+                                       class="text-blue-600 hover:text-blue-800" title="Voir">📖</a>
+                                    <a href="{{ path('app_oeuvre_edit', {'slug': oeuvre.slug}) }}"
+                                       class="text-yellow-600 hover:text-yellow-800" title="Modifier">✏️</a>
                                 </div>
-                                <a href="{{ path('app_oeuvre_show', {'slug': oeuvre.slug}) }}"
-                                   class="text-blue-600 hover:text-blue-800" title="Voir">📖</a>
-                                <a href="{{ path('app_oeuvre_edit', {'slug': oeuvre.slug}) }}"
-                                   class="text-yellow-600 hover:text-yellow-800" title="Modifier">✏️</a>
-                            </div>
-                        </div>
+                            {% endblock %}
+                        {% endembed %}
                     {% else %}
                         <p class="col-span-3 text-center text-white">Aucune œuvre trouvée.</p>
                     {% endfor %}

@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirige toutes les requêtes vers index.php sauf si le fichier/dossier existe
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^artworks/([0-9]+)$ /index.php?route=artworks_view&id=$1 [L]

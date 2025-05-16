@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.btn-red {
+    @apply bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow text-sm;
+}
