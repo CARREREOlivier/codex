@@ -54,6 +54,10 @@
                 'js_callback': 'searchFilters.filterArticles',
                 'placeholder': 'Rechercher un article...'
             } %}
+            <div id="sommaire">
+                <p id="noResultsMessage" class="mt-4 text-center text-white italic hidden">
+                    Aucun article ne correspond à votre recherche.
+                </p>
             {% if articles is not empty %}
                 <ul class="space-y-2">
                     <div class="space-y-2" id="sommaire">
@@ -65,6 +69,7 @@
             {% else %}
                 <p class="text-gray-600 italic">Aucun article lié à cette œuvre.</p>
             {% endif %}
+            </div>
         </div>
         </div>
 {% endblock %}
