@@ -6,6 +6,7 @@ use App\Entity\Oeuvre;
 use App\Form\OeuvreType;
 use App\Repository\OeuvreRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,9 +75,16 @@ final class OeuvreController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: 'app_oeuvre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Oeuvre $oeuvre, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, OeuvreRepository $repo, string $slug, EntityManagerInterface $entityManager): Response
     {
+        $oeuvre = $repo->findOneBy(['slug' => $slug]);
+
+        if (!$oeuvre) {
+            throw $this->createNotFoundException('Œuvre non trouvée.');
+        }
+
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(OeuvreType::class, $oeuvre);
         $form->handleRequest($request);
 
@@ -87,7 +95,7 @@ final class OeuvreController extends AbstractController
         }
 
         return $this->render('oeuvres/edit.html.twig', [
-            'oeuvres' => $oeuvre,
+            'oeuvre' => $oeuvre,
             'form' => $form,
         ]);
     }

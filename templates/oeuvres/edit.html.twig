@@ -1,13 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'oeuvres/base_oeuvres.html.twig' %}
 
-{% block title %}Edit Oeuvre{% endblock %}
+{% block title %}Modifier l'Œuvre{% endblock %}
 
 {% block body %}
-    <h1>Edit Oeuvre</h1>
+    <div class="max-w-3xl mx-auto px-4 py-12 bg-[#fdf6e3] rounded-2xl shadow-lg">
+        <h1 class="text-4xl font-bold text-center mb-8">✏️ Modifier l'Œuvre</h1>
 
-    {{ include('oeuvres/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('oeuvres/_form.html.twig', { 'button_label': 'Mettre à jour' }) }}
 
-    <a href="{{ path('app_oeuvre_index') }}">back to list</a>
+        <div class="text-center mt-8 space-x-4">
+            <a href="{{ path('app_oeuvre_index') }}"
+               class="inline-block bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
+                ← Retour à la liste
+            </a>
 
-    {{ include('oeuvres/_delete_form.html.twig') }}
+            {{ include('oeuvres/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
