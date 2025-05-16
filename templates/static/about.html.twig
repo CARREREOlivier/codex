@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos{% endblock %}
+
+{% block body %}
+    <div class="max-w-3xl mx-auto px-4 py-12 text-ink font-serif">
+        <h1 class="text-5xl font-bold text-center mb-8">📖 À propos du Codex d'Uuki</h1>
+
+        <p class="text-lg leading-relaxed mb-6">
+            Le Codex d'Uuki est bien plus qu’un simple blog.
+            C’est une bibliothèque numérique inspirée des anciens grimoires,
+            un lieu où l'imagination et le savoir s’entrelacent au fil des articles et des œuvres.
+        </p>
+
+        <p class="text-lg leading-relaxed mb-6">
+            Ce projet est né du désir de donner vie à un espace de réflexion littéraire,
+            de création, et de partage.
+            Vous y trouverez des récits, des analyses, et des univers à explorer,
+            comme si vous feuilletiez les pages d’un manuscrit oublié.
+        </p>
+
+        <div class="text-center mt-12">
+            <a href="{{ path('app_homepage') }}"
+               class="inline-block bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
+                ← Retour à l'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}

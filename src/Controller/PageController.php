@@ -11,7 +11,7 @@ class PageController extends AbstractController
     #[Route('/a-propos', name: 'page_about')]
     public function about(): Response
     {
-        return $this->render('pages/about.html.twig');
+        return $this->render('static/about.html.twig');
     }
 
     #[Route('/maintenance', name: 'page_maintenance')]
