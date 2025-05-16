@@ -1,0 +1,12 @@
+<div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-[#3d2c20] text-white p-4 shadow-lg z-50 hidden">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <p class="text-center md:text-left">
+            Ce site utilise des cookies pour améliorer votre expérience.
+            <a href="{{ path('app_mentions_legales') }}" class="underline hover:text-accent">En savoir plus</a>.
+        </p>
+        <button onclick="acceptCookies()"
+                class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full shadow transition">
+            ✅ Accepter
+        </button>
+    </div>
+</div>

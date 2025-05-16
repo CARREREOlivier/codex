@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions Légales{% endblock %}
+
+{% block body %}
+    <div class="max-w-3xl mx-auto px-4 py-12 text-ink font-serif">
+        <h1 class="text-5xl font-bold text-center mb-8">📜 Mentions Légales</h1>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Éditeur du site</h2>
+        <p>
+            Ce site est édité à titre personnel et n’a aucun but commercial pour le moment.<br>
+            Contact : <a href="mailto:contact@domaine.com" class="underline text-accent">contact@tondomaine.com</a>
+        </p>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Hébergement</h2>
+        <p>
+            OVH SAS<br>
+            2 rue Kellermann, 59100 Roubaix, France<br>
+        </p>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Propriété intellectuelle</h2>
+        <p>
+            L’ensemble des contenus présents sur ce site (textes, images, codes, etc.) est protégé par le droit d’auteur.
+            Toute reproduction ou utilisation sans autorisation est interdite, sauf mention contraire explicite.
+        </p>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Collecte et utilisation des données personnelles</h2>
+        <p>
+            Les données collectées (principalement adresses e-mail et adresses IP) sont destinées exclusivement à
+            la gestion du site et à l’amélioration de votre expérience utilisateur.
+            Ces données ne sont jamais revendues à des tiers, car je suis fermement opposé à de telles pratiques.
+        </p>
+        <p>Votre confiance est essentielle et vos données resteront strictement confidentielles.Toutefois, en cas d'obligations légales ou de réquisition par les autorités, certaines données pourront être transmises conformément à la législation en vigueur.</p>
+        <p>
+            Elles sont conservées aussi longtemps que nécessaire pour la bonne gestion du site,
+            notamment pour des raisons de sécurité et de modération (gestion de bannissements via IP).
+        </p>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Droit d’accès et de suppression</h2>
+        <p>
+            Conformément à la réglementation en vigueur (RGPD), vous pouvez à tout moment
+            demander l’accès, la modification ou la suppression de vos données personnelles
+            en écrivant à l’adresse :
+            <a href="mailto:contact@domaine.com" class="underline text-accent">contact@tondomaine.com</a>.
+        </p>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Cookies</h2>
+        <p>
+            Ce site utilise des cookies pour assurer son bon fonctionnement et réaliser des statistiques de navigation.
+            Vous pouvez accepter ou refuser les cookies via la bannière prévue à cet effet.
+        </p>
+
+        <div class="text-center mt-12">
+            <a href="{{ path('app_homepage') }}"
+               class="inline-block bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
+                ← Retour à l'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}
