@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[IsGranted('ROLE_ADMIN')]
-#[Route('/oeuvre')]
+#[Route('/oeuvres')]
 final class OeuvreController extends AbstractController
 {
     #[Route(name: 'app_oeuvre_index', methods: ['GET'])]
@@ -27,7 +27,7 @@ final class OeuvreController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        return $this->render('oeuvre/index.html.twig', [
+        return $this->render('oeuvres/index.html.twig', [
             'oeuvres' => $oeuvres,
         ]);
     }
@@ -59,7 +59,7 @@ final class OeuvreController extends AbstractController
         ]);
     }
 
-    #[Route('/oeuvre/{slug}', name: 'app_oeuvre_show', methods: ['GET'])]
+    #[Route('/oeuvres/{slug}', name: 'app_oeuvre_show', methods: ['GET'])]
     public function show(OeuvreRepository $repo, string $slug): Response
     {
         $oeuvre = $repo->findOneBy(['slug' => $slug]);
@@ -67,13 +67,13 @@ final class OeuvreController extends AbstractController
             throw $this->createNotFoundException('Œuvre non trouvée.');
         }
 
-        return $this->render('oeuvre/show.html.twig', [
-            'oeuvre' => $oeuvre,
+        return $this->render('oeuvres/show.html.twig', [
+            'oeuvres' => $oeuvre,
             'articles'=>$oeuvre->getArticles(),
         ]);
     }
 
-    #[Route('/oeuvre/{slug}/edit', name: 'app_oeuvre_edit', methods: ['GET', 'POST'])]
+    #[Route('/oeuvres/{slug}/edit', name: 'app_oeuvre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Oeuvre $oeuvre, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -86,13 +86,13 @@ final class OeuvreController extends AbstractController
             return $this->redirectToRoute('app_oeuvre_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('oeuvre/edit.html.twig', [
-            'oeuvre' => $oeuvre,
+        return $this->render('oeuvres/edit.html.twig', [
+            'oeuvres' => $oeuvre,
             'form' => $form,
         ]);
     }
 
-    #[Route('/oeuvre/{slug}/delete', name: 'app_oeuvre_delete', methods: ['POST'])]
+    #[Route('/oeuvres/{slug}/delete', name: 'app_oeuvre_delete', methods: ['POST'])]
     public function delete(Request $request, Oeuvre $oeuvre, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');

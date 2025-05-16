@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mx-auto px-4 py-8">
-        <!--présentation de l'oeuvre-->
+        <!--présentation de l'oeuvres-->
         <div class="bg-[#fdf6e3] p-8 rounded-xl shadow-md max-w-3xl mx-auto">
             <h1 class="text-4xl font-serif text-center mb-6 border-b pb-2">🎨 {{ oeuvre.titre }}</h1>
 
@@ -15,7 +15,7 @@
                 </a>
 
                 <div class="flex gap-4 items-center">
-                    <a href="{{ path('app_admin_article_new', {'oeuvre': oeuvre.id, 'returnTo': app.request.uri}) }}"
+                    <a href="{{ path('app_admin_article_new', {'oeuvres': oeuvre.id, 'returnTo': app.request.uri}) }}"
                        class="flex items-center bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow text-sm">
                         ➕ Ajouter un article
                     </a>
@@ -25,7 +25,7 @@
                         ✏️ Modifier
                     </a>
 
-                    {{ include('oeuvre/_delete_form.html.twig') }}
+                    {{ include('oeuvres/_delete_form.html.twig') }}
                 </div>
             </div>
 

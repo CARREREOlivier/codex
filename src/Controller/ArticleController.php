@@ -40,7 +40,7 @@ class ArticleController extends AbstractController
         return new Response('Article créé');
     }
 
-    #[Route('/article/new/{oeuvre}', name: 'app_admin_article_new')]
+    #[Route('/article/new/{oeuvres}', name: 'app_admin_article_new')]
     public function new(
         Request $request,
         EntityManagerInterface $entityManager,
@@ -64,12 +64,12 @@ class ArticleController extends AbstractController
             // Définir la date de création
             $article->setCreatedAt(new \DateTimeImmutable());
 
-            //on vérfie si l'oeuvre a déjà un titre similaire en vérifiant le slug.
+            //on vérfie si l'oeuvres a déjà un titre similaire en vérifiant le slug.
             //ca évite d'avoir deux fois le même slug à cause d'un accent différent
             $existingArticle = $entityManager->getRepository(Article::class)
                 ->findOneBy([
                     'slug' => $article->getSlug(),
-                    'oeuvre' => $article->getOeuvre(),
+                    'oeuvres' => $article->getOeuvre(),
                 ]);
 
             if ($existingArticle) {
