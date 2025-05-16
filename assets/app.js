@@ -18,12 +18,12 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/table';
+import { filterArticles } from './js/filters/articlesFilter';
 
 // skin CSS
 import 'tinymce/skins/ui/oxide/skin.min.css';
 
 // initialisation
-console.log('TinyMCE loading...');
 tinymce.init({
     selector: 'textarea.tinymce',
     plugins: 'link lists image code table',
@@ -34,7 +34,19 @@ tinymce.init({
     license_key: 'gpl',
     promotion: false,
     });
-console.log('TinyMCE loaded...🎉' );
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+// Registre des fonctions de filtre accessibles globalement
+window.searchFilters = {
+    filterArticles,
+};
 
+// Optionnel : Fonction générique si tu veux un fallback
+window.searchFilters.defaultFilter = function(query, containerSelector) {
+    const items = document.querySelectorAll(`${containerSelector} > div`);
+    query = query.toLowerCase();
+
+    items.forEach(item => {
+        const content = item.textContent.toLowerCase();
+        item.style.display = content.includes(query) ? '' : 'none';
+    });
+};

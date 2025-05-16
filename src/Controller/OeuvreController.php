@@ -54,12 +54,12 @@ final class OeuvreController extends AbstractController
             return $this->redirectToRoute('app_oeuvre_index');
         }
 
-        return $this->render('oeuvre/new.html.twig', [
+        return $this->render('oeuvres/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/oeuvres/{slug}', name: 'app_oeuvre_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_oeuvre_show', methods: ['GET'])]
     public function show(OeuvreRepository $repo, string $slug): Response
     {
         $oeuvre = $repo->findOneBy(['slug' => $slug]);
@@ -68,12 +68,12 @@ final class OeuvreController extends AbstractController
         }
 
         return $this->render('oeuvres/show.html.twig', [
-            'oeuvres' => $oeuvre,
+            'oeuvre' => $oeuvre,
             'articles'=>$oeuvre->getArticles(),
         ]);
     }
 
-    #[Route('/oeuvres/{slug}/edit', name: 'app_oeuvre_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'app_oeuvre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Oeuvre $oeuvre, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -92,7 +92,7 @@ final class OeuvreController extends AbstractController
         ]);
     }
 
-    #[Route('/oeuvres/{slug}/delete', name: 'app_oeuvre_delete', methods: ['POST'])]
+    #[Route('/{slug}/delete', name: 'app_oeuvre_delete', methods: ['POST'])]
     public function delete(Request $request, Oeuvre $oeuvre, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');

@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'oeuvres/base_oeuvres.html.twig' %}
 
 {% block title %}Détail de l'œuvre{% endblock %}
 
 {% block body %}
-    <div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto px-4 py-8">
         <!--présentation de l'oeuvres-->
-        <div class="bg-[#fdf6e3] p-8 rounded-xl shadow-md max-w-3xl mx-auto">
+        <div class="bg-[#fdf6e3] p-8 rounded-xl shadow-md mx-auto">
             <h1 class="text-4xl font-serif text-center mb-6 border-b pb-2">🎨 {{ oeuvre.titre }}</h1>
 
             <div class="mt-8 flex justify-between items-center">
@@ -46,27 +46,25 @@
                 </div>
             </div>
         </div>
-<!--Sommaire des articles-->
-        <div class="mt-8">
-            <h2 class="text-2xl font-semibold mb-4">Articles liés :</h2>
-
+        <!--Sommaire des articles-->
+        <div class="mt-8 max-w-4xl mx-auto">
+            <h2 class="text-2xl font-semibold mb-4 text-white">Sommaire :</h2>
+            {% include 'components/_search_bar.html.twig' with {
+                'input_id': 'articleSearch',
+                'js_callback': 'searchFilters.filterArticles',
+                'placeholder': 'Rechercher un article...'
+            } %}
             {% if articles is not empty %}
                 <ul class="space-y-2">
-                    {% for article in articles %}
-                        <li class="bg-gray-100 p-4 rounded shadow">
-                            <a href="{{ path('app_admin_article_show', {'id': article.id}) }}"
-                               class="text-blue-600 hover:underline text-lg font-medium">
-                                {{ article.title }}
-                            </a>
-                            <p class="text-gray-700 text-sm">
-                                {{ article.createdAt ? article.createdAt|date('d/m/Y') : 'Date inconnue' }}
-                            </p>
-                        </li>
-                    {% endfor %}
+                    <div class="space-y-2" id="sommaire">
+                        {% for article in articles %}
+                            {% include 'components/_article_summary.html.twig' %}
+                        {% endfor %}
+                    </div>
                 </ul>
             {% else %}
                 <p class="text-gray-600 italic">Aucun article lié à cette œuvre.</p>
             {% endif %}
         </div>
-    </div>
+        </div>
 {% endblock %}

@@ -1,11 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'oeuvres/base_oeuvres.html.twig' %}
 
-{% block title %}New Oeuvre{% endblock %}
+{% block title %}Créer une nouvelle Œuvre{% endblock %}
 
 {% block body %}
-    <h1>Create new Oeuvre</h1>
 
-    {{ include('oeuvres/_form.html.twig') }}
 
-    <a href="{{ path('app_oeuvre_index') }}">back to list</a>
+            <h1 class="text-4xl font-bold text-center mb-8 text-white">Créer une nouvelle Œuvre</h1>
+
+            {{ include('oeuvres/_form.html.twig', { 'button_label': 'Créer' }) }}
+
+            <div class="text-center mt-8">
+                <a href="{{ path('app_oeuvre_index') }}"
+                   class="inline-block bg-accent hover:bg-amber-950 text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
+                    ← Retour à la liste
+                </a>
+            </div>
+
+
 {% endblock %}

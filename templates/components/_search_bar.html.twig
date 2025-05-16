@@ -1,0 +1,6 @@
+<div class="mb-6">
+    <input type="text" id="{{ input_id }}"
+           placeholder="{{ placeholder|default('Rechercher...') }}"
+           class="w-full border border-gray-300 rounded px-4 py-2"
+           oninput="{{ js_callback }}(this.value)">
+</div>
