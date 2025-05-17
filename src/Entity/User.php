@@ -26,6 +26,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
+    private ?string $pseudo = null;
+
 
     #[ORM\Column(length: 180)]
     private ?string $email = null;
@@ -117,6 +120,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+        return $this;
+    }
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
