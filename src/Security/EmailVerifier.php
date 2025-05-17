@@ -19,12 +19,20 @@ class EmailVerifier
     ) {
     }
 
+    /**
+     * @param string $verifyEmailRouteName
+     * @param User $user
+     * @param TemplatedEmail $email
+     * @return void
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function sendEmailConfirmation(string $verifyEmailRouteName, User $user, TemplatedEmail $email): void
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
-            $verifyEmailRouteName,
-            (string) $user->getId(),
-            (string) $user->getEmail()
+            'app_verify_email',
+            $user->getId(),
+            $user->getEmail(),
+            ['id' => $user->getId()] // ← C'est CETTE ligne qui ajoute le paramètre id dans l'URL
         );
 
         $context = $email->getContext();
@@ -37,16 +45,34 @@ class EmailVerifier
         $this->mailer->send($email);
     }
 
+
     /**
-     * @throws VerifyEmailExceptionInterface
+     * @param Request $request
+     * @return void
      */
-    public function handleEmailConfirmation(Request $request, User $user): void
+    public function handleEmailConfirmation(Request $request): void
     {
-        $this->verifyEmailHelper->validateEmailConfirmationFromRequest($request, (string) $user->getId(), (string) $user->getEmail());
+        $userId = $request->query->get('id');
+
+        if (!$userId) {
+            throw new \LogicException('Aucun ID utilisateur trouvé dans le lien.');
+        }
+
+        $user = $this->entityManager->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            throw new \LogicException('Utilisateur introuvable.');
+        }
+
+        $this->verifyEmailHelper->validateEmailConfirmationFromRequest(
+            $request,
+            (string) $user->getId(),
+            (string) $user->getEmail()
+        );
 
         $user->setIsVerified(true);
-
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
+
 }

@@ -1,23 +1,99 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+    <div class="max-w-lg mx-auto bg-[#fdf6e3] p-8 rounded-2xl shadow-lg mt-12 text-ink font-serif">
+        <h1 class="text-4xl font-bold text-center mb-8">🖋️ Inscription</h1>
 
-    <h1>Register</h1>
+        {{ form_start(registrationForm) }}
 
-    {{ form_errors(registrationForm) }}
+        <div class="space-y-4">
+            <div>
+                {{ form_label(registrationForm.pseudo, 'Pseudo') }}
+                {{ form_widget(registrationForm.pseudo, { 'attr': {'class': 'w-full border border-gray-300 rounded px-4 py-2'} }) }}
+                {{ form_errors(registrationForm.pseudo) }}
+            </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            <div>
+                {{ form_label(registrationForm.email, 'Email') }}
+                {{ form_widget(registrationForm.email, { 'attr': {'class': 'w-full border border-gray-300 rounded px-4 py-2'} }) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            <div>
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+                <p id="passwordMismatchMessage" class="text-red-600 text-sm mt-2 hidden">
+                    ❌ Les deux mots de passe ne correspondent pas.
+                </p>
+                {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'w-full border border-gray-300 rounded px-4 py-2'} }) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="flex items-center mt-4">
+                <input type="checkbox" id="showPassword" class="mr-2" onclick="togglePasswordVisibility()">
+                <label for="showPassword">Afficher le mot de passe</label>
+            </div>
+
+            <div class="flex items-center">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                <span class="ml-2">{{ form_label(registrationForm.agreeTerms) }}</span>
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+            <div class="text-sm text-gray-600 mt-2">
+                🔒 Votre mot de passe doit contenir au minimum :
+                <ul class="list-disc list-inside mt-1">
+                    <li>8 caractères</li>
+                    <li>Une majuscule</li>
+                    <li>Une minuscule</li>
+                    <li>Un chiffre</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-8">
+            <button type="submit" class="bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
+                ✅ S’inscrire
+            </button>
+        </div>
+
+        {{ form_end(registrationForm) }}
+
+        <div class="text-center mt-8">
+            <a href="{{ path('app_login') }}" class="underline text-accent hover:text-accent-dark">Déjà inscrit ? Se connecter</a>
+        </div>
+    </div>
+    <script>
+        function validatePasswordFields() {
+            const pwd = document.getElementById('registration_form_plainPassword_first');
+            const confirmPwd = document.getElementById('registration_form_plainPassword_second');
+            const pwdLabel = document.querySelector("label[for='registration_form_plainPassword_first']");
+            const confirmPwdLabel = document.querySelector("label[for='registration_form_plainPassword_second']");
+            const errorMessage = document.getElementById('passwordMismatchMessage');
+
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            const isValid = regex.test(pwd.value);
+            const isMatch = pwd.value === confirmPwd.value;
+
+            // Vérification des règles de complexité
+            pwd.classList.toggle('border-red-500', !isValid);
+            pwd.classList.toggle('border-gray-300', isValid);
+
+            // Vérification des mots de passe identiques
+            confirmPwd.classList.toggle('border-red-500', !isMatch);
+            confirmPwd.classList.toggle('border-gray-300', isMatch);
+
+            // Affichage du message d'erreur
+            if (!isMatch && confirmPwd.value.length > 0) {
+                errorMessage.classList.remove('hidden');
+            } else {
+                errorMessage.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('registration_form_plainPassword_first').addEventListener('input', validatePasswordFields);
+            document.getElementById('registration_form_plainPassword_second').addEventListener('input', validatePasswordFields);
+        });
+    </script>
 {% endblock %}
