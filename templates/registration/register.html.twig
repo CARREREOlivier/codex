@@ -32,7 +32,10 @@
 
             <div class="flex items-center mt-4">
                 <input type="checkbox" id="showPassword" class="mr-2" onclick="togglePasswordVisibility()">
-                <label for="showPassword">Afficher le mot de passe</label>
+                <label for="showPassword" class="flex items-center space-x-2 cursor-pointer">
+                    <span id="passwordIcon">🙈</span>
+                    <span>Afficher le mot de passe</span>
+                </label>
             </div>
 
             <div class="flex items-center">
@@ -70,13 +73,19 @@
                 document.getElementById('registration_form_plainPassword_first'),
                 document.getElementById('registration_form_plainPassword_second')
             ];
+            const icon = document.getElementById('passwordIcon');
+            const isChecked = document.getElementById('showPassword').checked;
 
             pwdFields.forEach(field => {
                 if (field) {
-                    field.type = field.type === 'password' ? 'text' : 'password';
+                    field.type = isChecked ? 'text' : 'password';
                 }
             });
+
+            // Change l'icône en fonction de l'état
+            icon.textContent = isChecked ? '👁️' : '🙈';
         }
+
         function validatePasswordFields() {
             const pwd = document.getElementById('registration_form_plainPassword_first');
             const confirmPwd = document.getElementById('registration_form_plainPassword_second');
