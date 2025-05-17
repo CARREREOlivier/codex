@@ -8,7 +8,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: pseudo
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,7 +20,15 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
+                username_parameter: _username
+                password_parameter: _password
                 enable_csrf: true
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800  # 7 jours en secondes
+                path: /
+                always_remember_me: false  # Reste actif uniquement si l’utilisateur coche la case
+                secure: true  # paramètre en prod pour forcer HTTPS
             logout:
                 path: app_logout
                 # where to redirect after logout
