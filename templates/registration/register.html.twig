@@ -63,7 +63,20 @@
             <a href="{{ path('app_login') }}" class="underline text-accent hover:text-accent-dark">Déjà inscrit ? Se connecter</a>
         </div>
     </div>
+
     <script>
+        function togglePasswordVisibility() {
+            const pwdFields = [
+                document.getElementById('registration_form_plainPassword_first'),
+                document.getElementById('registration_form_plainPassword_second')
+            ];
+
+            pwdFields.forEach(field => {
+                if (field) {
+                    field.type = field.type === 'password' ? 'text' : 'password';
+                }
+            });
+        }
         function validatePasswordFields() {
             const pwd = document.getElementById('registration_form_plainPassword_first');
             const confirmPwd = document.getElementById('registration_form_plainPassword_second');
