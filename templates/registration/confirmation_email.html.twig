@@ -1,11 +1,53 @@
-<h1>Hi! Please confirm your email!</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation d'Inscription - Le Codex d'Uuki</title>
+    <style>
+        body {
+            background-color: #fdf6e3;
+            color: #3b2f2f;
+            font-family: 'EB Garamond', serif;
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        a.button {
+            display: inline-block;
+            background-color: #7a5c3e;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<h1>📜 Confirmation de votre inscription</h1>
 
 <p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    Merci de vous être inscrit sur <strong>Le Codex d'Uuki</strong>.<br>
+    Pour finaliser votre inscription et activer votre compte, veuillez confirmer votre adresse email en cliquant sur le lien ci-dessous :
+</p>
+
+<p style="text-align: center;">
+    <a href="{{ signedUrl|raw }}" class="button">✅ Confirmer mon adresse email</a>
 </p>
 
 <p>
-    Cheers!
+    Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
 </p>
+
+<p>
+    ✒️ À très bientôt sur les pages du Codex !
+</p>
+</body>
+</html>

@@ -25,4 +25,9 @@ class PageController extends AbstractController
     {
         return $this->render('static/mentions_legales.html.twig');
     }
+    #[Route('/register/confirmation', name: 'app_register_confirmation')]
+    public function registrationConfirmation(): Response
+    {
+        return $this->render('static/register_confirmation.html.twig');
+    }
 }

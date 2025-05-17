@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation d'Inscription{% endblock %}
+
+{% block body %}
+    <div class="max-w-2xl mx-auto px-4 py-12 text-ink font-serif bg-[#fdf6e3] rounded-2xl shadow-lg text-center">
+        <h1 class="text-5xl font-bold mb-8">📬 Vérifiez votre boîte mail</h1>
+
+        <p class="text-lg leading-relaxed mb-6">
+            Merci pour votre inscription sur <strong>Le Codex d'Uuki</strong>.<br>
+            Un email de confirmation vient de vous être envoyé.<br>
+            Veuillez cliquer sur le lien qu'il contient pour finaliser votre inscription.
+        </p>
+
+        <p class="text-gray-600 mb-8 italic">
+            Si vous ne voyez pas l'email, pensez à vérifier vos spams ou courriers indésirables.
+        </p>
+
+        <a href="{{ path('app_homepage') }}"
+           class="inline-block bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
+            🏠 Retour à l'accueil
+        </a>
+    </div>
+{% endblock %}
