@@ -40,11 +40,26 @@
                 <a href="{{ path('app_homepage') }}" class="hover:text-accent-dark">Accueil</a>
                 <a href="{{ path('app_oeuvre_index') }}" class="hover:text-accent-dark">Œuvres</a>
                 <a href="{{ path('app_admin_article_index') }}" class="hover:text-accent-dark">Articles</a>
-                {% if app.user %}
-                    <a href="{{ path('app_logout') }}" class="text-red-500 hover:text-red-700">Déconnexion</a>
-                {% else %}
-                    <a href="{{ path('app_login') }}" class="hover:text-accent-dark">Se connecter</a>
-                {% endif %}
+                <a href="{{ path('page_about') }}" class="hover:text-accent-dark">A propos</a>
+                <a href="{{ path('app_admin_article_index') }}" class="hover:text-accent-dark">Contact</a>
+                <div class="mt-4 md:mt-0 text-sm text-gray-700 flex items-center space-x-4">
+                    {% if not app.user %}
+                        <a href="{{ path('app_register') }}"  class="underline text-accent hover:text-accent-dark">
+                            S'enregistrer
+                        </a>
+                    {% endif %}
+                    {% if app.user %}
+                        <span>Connecté en tant que <strong>{{ app.user.email }}</strong></span>
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Admin</span>
+                            <a href="{{ path('app_admin_article_index') }}" class="underline text-accent">Backoffice</a>
+                        {% endif %}
+
+                        <a href="{{ path('app_logout') }}" class="underline text-red-500 hover:text-red-700">Se déconnecter</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="underline text-accent hover:text-accent-dark">Se connecter</a>
+                    {% endif %}
+                </div>
             </nav>
         </div>
         <!-- menu qui se cache pour les smartphones/tablettes -->
@@ -58,12 +73,18 @@
     </div>
 
     <div class="mt-4 md:mt-0 text-sm text-gray-700 flex items-center space-x-4">
+        {% if not app.user %}
+            <a href="{{ path('app_register') }}"  class="underline text-accent hover:text-accent-dark">
+               S'enregistrer
+            </a>
+        {% endif %}
         {% if app.user %}
-            <span>Connecté en tant que <strong>{{ app.user.email }}</strong></span>
+            <span>Connecté en tant que <strong>{{ app.user.pseudo }}</strong></span>
             {% if 'ROLE_ADMIN' in app.user.roles %}
                 <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Admin</span>
                 <a href="{{ path('app_admin_article_index') }}" class="underline text-accent">Backoffice</a>
             {% endif %}
+
             <a href="{{ path('app_logout') }}" class="underline text-red-500 hover:text-red-700">Se déconnecter</a>
         {% else %}
             <a href="{{ path('app_login') }}" class="underline text-accent hover:text-accent-dark">Se connecter</a>
