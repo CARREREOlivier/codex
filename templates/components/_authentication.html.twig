@@ -1,0 +1,16 @@
+{% if not app.user %}
+    <a href="{{ path('app_register') }}"  class="underline text-accent hover:text-accent-dark">
+        S'enregistrer
+    </a>
+{% endif %}
+    {% if app.user %}
+        <span>Connecté en tant que <strong>{{ app.user.pseudo }}</strong></span>
+        {% if 'ROLE_ADMIN' in app.user.roles %}
+            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Admin</span>
+            <a href="{{ path('app_admin_article_index') }}" class="underline text-accent">Backoffice</a>
+        {% endif %}
+
+        <a href="{{ path('app_logout') }}" class="underline text-red-500 hover:text-red-700">Se déconnecter</a>
+    {% else %}
+        <a href="{{ path('app_login') }}" class="underline text-accent hover:text-accent-dark">Se connecter</a>
+    {% endif %}

@@ -15,7 +15,8 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
-    .addEntry('app', './assets/app.js') // Ton JS principal
+    .addEntry('app', './assets/app.js') // JS principal
+    .addEntry('menuToggle', './assets/js/menuToggle.js')
     .addStyleEntry('styles', './assets/styles/app.css') // Ton CSS principal
     .enablePostCssLoader()
 

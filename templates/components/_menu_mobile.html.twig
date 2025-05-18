@@ -1,0 +1,12 @@
+<div class="md:hidden">
+{{ include('components/_burger.html.twig') }}
+</div>
+<!--menu caché qui slide-->
+<div id="mobile-menu" class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 p-4">
+    {{ include('components/_menu_closeButton.html.twig')}}
+
+    {{ include('components/_nav.html.twig', { 'mode': 'mobile' }) }}
+
+    {{ include ('components/_authentication.html.twig') }}
+</div>
+
