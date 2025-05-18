@@ -30,4 +30,10 @@ class PageController extends AbstractController
     {
         return $this->render('static/register_confirmation.html.twig');
     }
+
+    #[Route('/pacte', name: 'app_pacte')]
+    public function pacte(): Response
+    {
+        return $this->render('static/pacte.html.twig');
+    }
 }
