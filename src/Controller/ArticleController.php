@@ -14,9 +14,42 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
-
+#[Route('/articles')]
 class ArticleController extends AbstractController
 {
+
+    #[\Symfony\Component\Routing\Attribute\Route('/',name: 'app_articles_index', methods: ['GET'])]
+    public function index(ArticleRepository $articleRepository): Response
+    {
+        return $this->render('articles/index.html.twig', [
+            'articles' => $articleRepository->findAll(),
+        ]);
+    }
+
+    #[\Symfony\Component\Routing\Attribute\Route('/articles/new', name: 'app_articles_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    {
+        $article = new Article();
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $now = new \DateTimeImmutable();
+            $article->setCreatedAt($now);
+            $article->setUpdatedAt($now);
+            $article->setSlug($slugger->slug($article->getTitle())->lower());
+
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('app_admin_article_index');
+        }
+
+        return $this->render('articles/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
     #[Route('/article/{slug}', name: 'article_show')]
     public function show(string $slug, ArticleRepository $articleRepository): Response
     {
@@ -41,7 +74,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/new/{oeuvres}', name: 'app_admin_article_new')]
-    public function new(
+    public function newArticleFromOeuvre(
         Request $request,
         EntityManagerInterface $entityManager,
         SluggerInterface $slugger,
@@ -52,6 +85,7 @@ class ArticleController extends AbstractController
         if ($oeuvre) {
             $article->setOeuvre($oeuvre);
         }
+
 
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -94,4 +128,6 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 }

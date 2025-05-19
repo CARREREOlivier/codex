@@ -26,30 +26,6 @@ final class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/article/new', name: 'app_admin_article_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
-    {
-        $article = new Article();
-
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $now = new \DateTimeImmutable();
-            $article->setCreatedAt($now);
-            $article->setUpdatedAt($now);
-            $article->setSlug($slugger->slug($article->getTitle())->lower());
-
-            $em->persist($article);
-            $em->flush();
-
-            return $this->redirectToRoute('app_admin_article_index');
-        }
-
-        return $this->render('admin/article/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
     #[Route('/{id}', name: 'app_admin_article_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
