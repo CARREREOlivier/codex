@@ -8,5 +8,7 @@
     <a href="{{ path('app_oeuvre_index') }}" class="hover:text-accent-dark">Œuvres</a>
     <a href="{{ path('app_admin_article_index') }}" class="hover:text-accent-dark">Articles</a>
     <a href="{{ path('page_about') }}" class="hover:text-accent-dark">À propos</a>
-    <a href="#" class="hover:text-accent-dark">Contact</a>
+    {% if app.user %}
+        <a href="{{ path('app_contact') }}" class="hover:text-accent-dark">Contact</a>
+    {% endif %}
 </nav>

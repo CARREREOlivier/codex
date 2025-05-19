@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+{% block body %}
+<div></div> {# Colonne vide à gauche #}
+
+<div data-controller="tinymce" class="col-span-1 bg-[#fdf6e3] p-8 rounded-2xl shadow-lg">
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div class="space-y-6">
+
+    {# Honeypot (Invisible) #}
+    <div style="display:none;">
+        <label for="website">Ne remplissez pas ce champ</label>
+        <input type="text" name="website" id="website">
+    </div>
+
+    {# Time-Based Token #}
+    <input type="hidden" name="form_token_time" value="{{ form_token_time }}">
+
+    {# Mouse/Touch Detection #}
+    <input type="hidden" name="human_interaction" id="human_interaction" value="0">
+
+    {# Dynamic Field (Anti-Bot) #}
+    <input type="hidden" name="{{ dynamic_field_name }}" value="1">
+
+    {# Nom #}
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name, {'attr': {'class': 'w-full bg-white border border-black rounded px-4 py-2'}}) }}
+    {{ form_errors(form.name) }}
+
+    {# Email #}
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email, {'attr': {'class': 'w-full bg-white border border-black rounded px-4 py-2'}}) }}
+    {{ form_errors(form.email) }}
+
+    {# Objet #}
+    {{ form_label(form.subject) }}
+    {{ form_widget(form.subject, {'attr': {'class': 'w-full bg-white border border-black rounded px-4 py-2'}}) }}
+    {{ form_errors(form.subject) }}
+
+    {# Message avec TinyMCE #}
+    {{ form_label(form.message) }}
+    {{ form_widget(form.message, {'attr': {'class': 'tinymce w-full bg-white border border-black rounded px-4 py-2', 'rows': 10}}) }}
+    {{ form_errors(form.message) }}
+
+    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow"
+            onclick="this.disabled = true; this.form.submit();">
+        Envoyer
+    </button>
+
+</div>
+{{ form_end(form) }}
+</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interactionDetected = false;
+
+            const setInteraction = () => {
+                if (!interactionDetected) {
+                    document.getElementById('human_interaction').value = '1';
+                    interactionDetected = true;
+                }
+            };
+
+            document.addEventListener('mousemove', setInteraction);
+            document.addEventListener('touchstart', setInteraction);
+        });
+    </script>
+
+
+{% endblock %}
