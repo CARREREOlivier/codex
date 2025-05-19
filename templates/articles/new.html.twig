@@ -1,13 +1,13 @@
-{% extends '../../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}New Article{% endblock %}
 
 {% block body %}
     <h1 class="text-4xl font-serif text-center mb-6 border-b pb-2">Créer un nouvel article</h1>
 
-    {% include '_form.html.twig' with {'form': form} %}
+    {% include 'articles/_form.html.twig' with {'form': form} %}
 
-    <a href="{{ path('app_admin_article_index') }}"
+    <a href="{{ path('app_articles_index') }}"
        class="block text-center mt-8 text-sm text-blue-700 hover:underline">← Retour à la liste</a>
 
 {% endblock %}

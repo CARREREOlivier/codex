@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_admin_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('app_article_delete', {'slug': article.slug}) }}" onsubmit="return confirm('L\'effacement est définitif. Etes vous sur de vouloir effacer cet article?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-    <button class="btn">Delete</button>
+    <button class="btn">Effacer</button>
 </form>

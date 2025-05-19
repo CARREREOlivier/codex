@@ -18,6 +18,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/oeuvres')]
 final class OeuvreController extends AbstractController
 {
+
+
     #[Route(name: 'app_oeuvre_index', methods: ['GET'])]
     public function index(OeuvreRepository $oeuvreRepository): Response
     {

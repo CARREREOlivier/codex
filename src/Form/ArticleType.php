@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Article;
 use App\Entity\Oeuvre;
 use App\Enum\ArticleStatus;
+use App\Repository\OeuvreRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -39,15 +40,20 @@ class ArticleType extends AbstractType
             ])
             ->add('oeuvre', EntityType::class, [
             'class' => Oeuvre::class,
-            'choice_label' => 'titre', // ou le champ à afficher dans le select
-            'label' => 'Œuvre associée',
-        ]);;
+            'choice_label' => 'titre',
+            'query_builder' => function (OeuvreRepository $repo) use ($options) {
+                return $repo->createQueryBuilder('o')
+                    ->where('o.user = :user')
+                    ->setParameter('user', $options['user']);
+            },
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'user' => null,
         ]);
     }
 }
