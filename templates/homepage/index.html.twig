@@ -55,7 +55,7 @@
                         {% embed 'components/_card.html.twig' %}
                             {% block card_title %}
                                 <h2 class="text-2xl font-bold text-accent mb-2">
-                                    <a href="{{ path('article_show', { slug: article.slug }) }}" class="hover:underline">
+                                    <a href="{{ path('app_article_show', { slug: article.slug }) }}" class="hover:underline">
                                         {{ article.title }}
                                     </a>
                                 </h2>
@@ -72,9 +72,19 @@
                                     {{ article.content|striptags|slice(0, 200) ~ '…' }}
                                 </p>
                             {% endblock %}
-
+                            {% block card_author %}
+                                {% if article is defined and article.author is not null %}
+                                    <p class="text-sm italic text-right text-gray-500 mt-2">
+                                        par {{ article.author.pseudo }}
+                                    </p>
+                                {% elseif oeuvre is defined and oeuvre.user is not null %}
+                                    <p class="text-sm italic text-right text-gray-500 mt-2">
+                                        par {{ oeuvre.user.pseudo }}
+                                    </p>
+                                {% endif %}
+                            {% endblock %}
                             {% block card_footer %}
-                                <a href="{{ path('article_show', { slug: article.slug }) }}"
+                                <a href="{{ path('app_article_show', { slug: article.slug }) }}"
                                    class="mt-4 inline-block text-accent hover:underline font-semibold">
                                     Lire l'article →
                                 </a>
@@ -118,7 +128,17 @@
                                     </a>
                                 </h2>
                             {% endblock %}
-
+                            {% block card_author %}
+                                {% if article is defined and article.author is not null %}
+                                    <p class="text-sm italic text-right text-gray-500 mt-2">
+                                        par {{ article.author.pseudo }}
+                                    </p>
+                                {% elseif oeuvre is defined and oeuvre.user is not null %}
+                                    <p class="text-sm italic text-right text-gray-500 mt-2">
+                                        par {{ oeuvre.user.pseudo }}
+                                    </p>
+                                {% endif %}
+                            {% endblock %}
                             {% block card_content %}
                                 <p class="text-base leading-relaxed">
                                     {{ oeuvre.description|striptags|slice(0, 200) ~ '…' }}
