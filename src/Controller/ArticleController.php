@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/articles')]
@@ -154,58 +155,47 @@ class ArticleController extends AbstractController
         return new Response('Article créé');
     }
 
-    #[Route('/article/new/{oeuvres}', name: 'app_admin_article_new')]
+    #[Route('/articles/new/{slug}', name: 'app_articles_new_for_oeuvre', methods: ['GET', 'POST'])]
     public function newArticleFromOeuvre(
+        string $slug,
+        OeuvreRepository $oeuvreRepository,
         Request $request,
-        EntityManagerInterface $entityManager,
-        SluggerInterface $slugger,
-        Oeuvre $oeuvre = null
+        EntityManagerInterface $entityManager
     ): Response {
-        $article = new Article();
+        $oeuvre = $oeuvreRepository->findOneBy(['slug' => $slug]);
 
-        if ($oeuvre) {
-            $article->setOeuvre($oeuvre);
+        if (!$oeuvre) {
+            throw $this->createNotFoundException('Œuvre non trouvée.');
         }
 
+        $article = new Article();
+        $article->setOeuvre($oeuvre);
+        $article->setAuthor($this->getUser());
 
-        $form = $this->createForm(ArticleType::class, $article);
+        $form = $this->createForm(ArticleType::class, $article, [
+            'user' => $this->getUser(),
+        ]);
         $form->handleRequest($request);
-        $returnTo = $request->query->get('returnTo');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Génération du slug à partir du titre de l’article
-            $slug = $slugger->slug($article->getTitle())->lower();
-            $article->setSlug($slug);
-            // Définir la date de création
-            $article->setCreatedAt(new \DateTimeImmutable());
+            // Slug
+            $slugger = new AsciiSlugger();
+            $baseSlug = strtolower($slugger->slug($article->getTitle()));
+            $slug = $baseSlug;
+            $counter = 1;
 
-            //on vérfie si l'oeuvres a déjà un titre similaire en vérifiant le slug.
-            //ca évite d'avoir deux fois le même slug à cause d'un accent différent
-            $existingArticle = $entityManager->getRepository(Article::class)
-                ->findOneBy([
-                    'slug' => $article->getSlug(),
-                    'oeuvres' => $article->getOeuvre(),
-                ]);
-
-            if ($existingArticle) {
-                $this->addFlash('warning', 'Un article avec ce titre existe déjà. Veuillez modifier le titre ou vérifier la liste des articles.');
-
-                // Pas de redirection pour éviter d eperdre le texte, le formattage etc...
-                //  on réaffiche le formulaire avec les données déjà remplies
-                return $this->render('admin/article/new.html.twig', [
-                    'form' => $form->createView(),
-                ]);
+            while ($entityManager->getRepository(Article::class)->findOneBy(['slug' => $slug])) {
+                $slug = $baseSlug . '-' . $counter++;
             }
 
+            $article->setSlug($slug);
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirect($returnTo ?? $this->generateUrl('app_homepage'));
-
+            return $this->redirectToRoute('app_article_show', ['slug' => $article->getSlug()]);
         }
 
-
-        return $this->render('admin/article/new.html.twig', [
+        return $this->render('articles/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }

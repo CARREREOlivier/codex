@@ -15,7 +15,7 @@
                 </a>
 
                 <div class="flex gap-4 items-center">
-                    <a href="{{ path('app_admin_article_new', {'oeuvres': oeuvre.id, 'returnTo': app.request.uri}) }}"
+                    <a href="{{ path('app_articles_new_for_oeuvre', {'slug': oeuvre.slug}) }}"
                        class="flex items-center bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow text-sm">
                         ➕ Ajouter un article
                     </a>
