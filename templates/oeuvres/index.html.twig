@@ -24,6 +24,17 @@
                                     </a>
                                 </h2>
                             {% endblock %}
+                            {% block card_author %}
+                                {% if article is defined and article.author is not null %}
+                                    <p class="text-sm italic text-right text-gray-500 mt-2">
+                                        par {{ article.author.pseudo }}
+                                    </p>
+                                {% elseif oeuvre is defined and oeuvre.user is not null %}
+                                    <p class="text-sm italic text-right text-gray-500 mt-2">
+                                        par {{ oeuvre.user.pseudo }}
+                                    </p>
+                                {% endif %}
+                            {% endblock %}
 
                             {% block card_subtitle %}
                                 <p class="text-gray-700 italic text-center">{{ oeuvre.type }}</p>
