@@ -1,30 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Utilisateurs{% endblock %}
+{% block page_title %}Utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Liste des utilisateurs</h1>
+    <h1 class="text-3xl font-bold mb-8">👥 Utilisateurs</h1>
 
-    <table>
-        <thead>
+    <table class="w-full table-auto text-left text-white bg-[#2d2d2d] rounded-xl overflow-hidden">
+        <thead class="bg-[#15110b] text-gray-300 uppercase text-sm tracking-wider">
         <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Rôles</th>
-            <th>Date d'inscription</th>
+            <th class="px-4 py-3">Pseudo</th>
+            <th class="px-4 py-3">Email</th>
+            <th class="px-4 py-3">Rôles</th>
+            <th class="px-4 py-3">Créé le</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-sm divide-y divide-gray-600">
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles|join(', ') }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('d/m/Y H:i') : '–' }}</td>
+                <td class="px-4 py-3">{{ user.pseudo ?? '—' }}</td>
+                <td class="px-4 py-3">{{ user.email }}</td>
+                <td class="px-4 py-3">
+                    {% for role in user.roles %}
+                        <span class="inline-block bg-gray-700 text-white text-xs px-2 py-1 rounded mr-1">{{ role }}</span>
+                    {% endfor %}
+                </td>
+                <td class="px-4 py-3">{{ user.createdAt ? user.createdAt|date('d/m/Y H:i') : '—' }}</td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">Aucun utilisateur trouvé.</td>
+                <td colspan="4" class="px-4 py-6 text-center text-gray-400">Aucun utilisateur trouvé.</td>
             </tr>
         {% endfor %}
         </tbody>

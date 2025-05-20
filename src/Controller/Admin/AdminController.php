@@ -14,9 +14,10 @@ class AdminController extends AbstractController
     #[Route('/', name: 'dashboard')]
     public function dashboard(
         ArticleRepository $articleRepository,
-        OeuvreRepository $oeuvreRepository,
-        UserRepository $userRepository
-    ): Response {
+        OeuvreRepository  $oeuvreRepository,
+        UserRepository    $userRepository
+    ): Response
+    {
         $articlesPublies = $articleRepository->count(['status' => 'publié']);
         $nbOeuvres = $oeuvreRepository->count([]);
         $nbUsers = $userRepository->count([]);
@@ -82,8 +83,12 @@ class AdminController extends AbstractController
     }
 
     #[Route('/utilisateurs', name: 'users_index')]
-    public function usersIndex(): Response
+    public function usersIndex(UserRepository $userRepository): Response
     {
-        return $this->render('admin/users/index.html.twig');
+        $users = $userRepository->findBy([], ['createdAt' => 'DESC']);
+
+        return $this->render('admin/users/index.html.twig', [
+            'users' => $users,
+        ]);
     }
 }
