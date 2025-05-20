@@ -50,8 +50,12 @@ final class OeuvreController extends AbstractController
             $slug = $slugger->slug($oeuvre->getTitre())->lower();
             $oeuvre->setSlug($slug);
 
+            $oeuvre->setUser($this->getUser());
+
             $entityManager->persist($oeuvre);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Œuvre créée avec succès.');
 
             return $this->redirectToRoute('app_oeuvre_index');
         }
