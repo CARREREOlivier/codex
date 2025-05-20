@@ -10,7 +10,10 @@
             {% embed 'components/_card.html.twig' %}
                 {% block card_title %}
                     <h2 class="text-2xl font-bold text-accent mb-2 text-center">
-                        <a href="{{ path('app_article_show', {'slug': article.slug}) }}" class="hover:underline">
+                        <a href="{{ path('app_article_show', {
+                            slugOeuvre: article.oeuvre.slug,
+                            slug: article.slug
+                        }) }}" class="hover:underline">
                             {{ article.title }}
                         </a>
                     </h2>
@@ -26,9 +29,14 @@
 
                 {% block card_footer %}
                     <div class="flex justify-end space-x-4 mt-4">
-                        <a href="{{ path('app_article_show', {'slug': article.slug}) }}"
+                        <a href="{{ path('app_article_show', {
+                            slugOeuvre: article.oeuvre.slug,
+                            slug: article.slug
+                        }) }}"
                            class="text-blue-600 hover:text-blue-800" title="Voir">📖</a>
-                        <a href="{{ path('app_article_edit', {'slug': article.slug}) }}"
+                        <a href="{{ path('app_article_edit', {
+                            slugOeuvre: article.oeuvre.slug,
+                            slug: article.slug}) }}"
                            class="text-yellow-600 hover:text-yellow-800" title="Modifier">✏️</a>
                     </div>
                 {% endblock %}

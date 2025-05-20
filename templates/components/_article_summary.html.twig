@@ -1,6 +1,9 @@
 <div class="bg-[#fdf6e3] p-4 rounded shadow flex flex-col space-y-2">
     <div class="flex justify-between items-center">
-        <a href="{{ path('app_article_show', {'slug': article.slug}) }}"
+        <a href="{{ path('app_article_show', {
+            slugOeuvre: article.oeuvre.slug,
+            slug: article.slug
+        }) }}"
            class="text-blue-600 hover:underline text-lg font-medium">
             {{ article.title }}
         </a>

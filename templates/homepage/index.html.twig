@@ -55,7 +55,10 @@
                         {% embed 'components/_card.html.twig' %}
                             {% block card_title %}
                                 <h2 class="text-2xl font-bold text-accent mb-2">
-                                    <a href="{{ path('app_article_show', { slug: article.slug }) }}" class="hover:underline">
+                                    <a href="{{ path('app_article_show', {
+                                        'slugOeuvre': article.oeuvre.slug,
+                                        'slug': article.slug
+                                    }) }}" class="hover:underline">
                                         {{ article.title }}
                                     </a>
                                 </h2>
@@ -84,7 +87,10 @@
                                 {% endif %}
                             {% endblock %}
                             {% block card_footer %}
-                                <a href="{{ path('app_article_show', { slug: article.slug }) }}"
+                                <a href="{{ path('app_article_show', {
+                                    'slugOeuvre': article.oeuvre.slug,
+                                    'slug': article.slug
+                                }) }}"
                                    class="mt-4 inline-block text-accent hover:underline font-semibold">
                                     Lire l'article →
                                 </a>

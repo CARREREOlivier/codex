@@ -19,11 +19,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/articles')]
+#[Route('')]
 #[ORM\HasLifecycleCallbacks]
 class ArticleController extends AbstractController
 {
-    #[\Symfony\Component\Routing\Attribute\Route('/',name: 'app_articles_index', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/articles',name: 'app_articles_index', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository): Response
     {
         return $this->render('articles/index.html.twig', [
@@ -31,7 +31,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_articles_new', methods: ['GET', 'POST'])]
+    #[Route('/articles/new', name: 'app_articles_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $entityManager,
@@ -91,7 +91,7 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/{slug}', name: 'app_article_show', methods: ['GET'])]
+    #[Route('/articles/{slug}', name: 'app_article_only_show', methods: ['GET'])]
     public function show(ArticleRepository $articleRepository, string $slug): Response
     {
         $user = $this->getUser();
@@ -111,7 +111,7 @@ class ArticleController extends AbstractController
     }
 
 
-    #[Route('/{slug}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
+    #[Route('/articles/{slug}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
     public function edit(
         ArticleRepository $articleRepository,
         Request $request,
@@ -200,7 +200,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/delete', name: 'app_article_delete', methods: ['POST'])]
+    #[Route('/articles/{slug}/delete', name: 'app_article_delete', methods: ['POST'])]
     public function delete(
         Request $request,
         ArticleRepository $articleRepository,
@@ -223,6 +223,31 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute('app_articles_index');
     }
 
+    #[Route('/oeuvre/{slugOeuvre}/article/{slug}', name: 'app_article_show', methods: ['GET'])]
+    public function showFromOeuvre(
+        string $slugOeuvre,
+        string $slug,
+        ArticleRepository $articleRepository
+    ): Response {
+        $article = $articleRepository->findOneBy(['slug' => $slug]);
+
+        if (!$article || $article->getOeuvre()->getSlug() !== $slugOeuvre) {
+            throw $this->createNotFoundException('Article non trouvé ou mal référencé.');
+        }
+
+        // Autorisation lecture : brouillon si propriétaire
+        $user = $this->getUser();
+        if (
+            $article->getStatus()->value !== 'publié' &&
+            (!$user || $article->getAuthor() !== $user)
+        ) {
+            throw $this->createNotFoundException('Article non publié.');
+        }
+
+        return $this->render('articles/show.html.twig', [
+            'article' => $article,
+        ]);
+    }
 
 
 }

@@ -16,7 +16,10 @@
 
 
 
-                    <a href="{{ path('app_article_edit', {'slug': article.slug}) }}"
+                    <a href="{{ path('app_article_show', {
+                        slugOeuvre: article.oeuvre.slug,
+                        slug: article.slug
+                    }) }}"
                        class="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow text-sm">
                         <i class="fas fa-edit mr-2"></i> Modifier
                     </a>
