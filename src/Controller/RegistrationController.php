@@ -54,7 +54,7 @@ class RegistrationController extends AbstractController
             // Envoie ou affiche le lien (en dev, tu peux juste l’afficher pour le tester)
             $this->addFlash('success', 'Votre inscription est enregistrée. Veuillez vérifier votre email pour activer votre compte. Voici le lien temporaire : ' . $verificationLink);
 
-            // generate a signed url and email it to the user
+            // generate a signed url and email it to the users
             $this->emailVerifier->sendEmailConfirmation(
                 'app_verify_email', // Nom de la route de validation
                 $user,

@@ -74,7 +74,7 @@ final class OeuvreController extends AbstractController
         }
 
         return $this->render('oeuvres/show.html.twig', [
-            'oeuvre' => $oeuvre,
+            'oeuvres' => $oeuvre,
             'articles'=>$oeuvre->getArticles(),
         ]);
     }
@@ -100,7 +100,7 @@ final class OeuvreController extends AbstractController
         }
 
         return $this->render('oeuvres/edit.html.twig', [
-            'oeuvre' => $oeuvre,
+            'oeuvres' => $oeuvre,
             'form' => $form,
         ]);
     }

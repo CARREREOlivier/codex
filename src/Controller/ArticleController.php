@@ -4,11 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Oeuvre;
-use App\Enum\ArticleStatus;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\OeuvreRepository;
-use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Psr\Log\LoggerInterface;
@@ -42,7 +40,7 @@ class ArticleController extends AbstractController
         $user = $this->getUser();
 
         // Vérifier si l'utilisateur a des œuvres
-        $oeuvres = $oeuvreRepository->findBy(['user' => $user]);
+        $oeuvres = $oeuvreRepository->findBy(['users' => $user]);
 
         if (empty($oeuvres)) {
             $defaultTitle = 'Articles Non Classés de ' . $user->getPseudo();
@@ -64,7 +62,7 @@ class ArticleController extends AbstractController
         $article = new Article();
         $article->setAuthor($this->getUser());
         $form = $this->createForm(ArticleType::class, $article, [
-            'user' => $user,
+            'users' => $user,
         ]);
         $form->handleRequest($request);
 
@@ -126,7 +124,7 @@ class ArticleController extends AbstractController
         }
 
         $form = $this->createForm(ArticleType::class, $article, [
-            'user' => $this->getUser(),
+            'users' => $this->getUser(),
         ]);
         $form->handleRequest($request);
 
@@ -173,7 +171,7 @@ class ArticleController extends AbstractController
         $article->setAuthor($this->getUser());
 
         $form = $this->createForm(ArticleType::class, $article, [
-            'user' => $this->getUser(),
+            'users' => $this->getUser(),
         ]);
         $form->handleRequest($request);
 
@@ -223,7 +221,7 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute('app_articles_index');
     }
 
-    #[Route('/oeuvre/{slugOeuvre}/article/{slug}', name: 'app_article_show', methods: ['GET'])]
+    #[Route('/oeuvres/{slugOeuvre}/article/{slug}', name: 'app_article_show', methods: ['GET'])]
     public function showFromOeuvre(
         string $slugOeuvre,
         string $slug,

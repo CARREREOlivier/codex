@@ -1,0 +1,61 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block body %}
+    <h1 class="text-3xl font-bold mb-10">📊 Tableau de bord</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white mb-10">
+        <div class="bg-[#2d2d2d] p-6 rounded-xl shadow-lg">
+            <h2 class="text-lg text-gray-300">Articles publiés</h2>
+            <p class="text-4xl font-bold text-accent">{{ articlesPublies }}</p>
+        </div>
+        <div class="bg-[#2d2d2d] p-6 rounded-xl shadow-lg">
+            <h2 class="text-lg text-gray-300">Œuvres</h2>
+            <p class="text-4xl font-bold text-accent">{{ nbOeuvres }}</p>
+        </div>
+        <div class="bg-[#2d2d2d] p-6 rounded-xl shadow-lg">
+            <h2 class="text-lg text-gray-300">Utilisateurs</h2>
+            <p class="text-4xl font-bold text-accent">{{ nbUsers }}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 🔍 À SURVEILLER -->
+        <div class="bg-[#1f1f1f] p-6 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-semibold mb-4">🔎 À surveiller</h2>
+
+            <ul class="space-y-2 text-sm text-gray-300">
+                <li>📌 Brouillons anciens : <strong>{{ brouillonsAnciens|length }}</strong></li>
+                <li>🧩 Articles sans œuvre : <strong>{{ articlesSansOeuvre|length }}</strong></li>
+                <li>👤 Articles sans auteur : <strong>{{ articlesSansAuteur|length }}</strong></li>
+                <li>📝 Œuvres sans description : <strong>{{ oeuvresSansDescription|length }}</strong></li>
+                <li>✂️ Articles très courts (&lt; 500c) : <strong>{{ articlesTropCourts|length }}</strong></li>
+                <li>📎 Titres d’articles dupliqués : <strong>{{ articlesDupliques|length }}</strong></li>
+            </ul>
+        </div>
+
+        <!-- 🧾 ACTUALITÉS -->
+        <div class="bg-[#1f1f1f] p-6 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-semibold mb-4">🧾 Activité récente</h2>
+
+            <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-400">📄 Derniers articles</h3>
+            <ul class="list-disc list-inside text-sm text-gray-300">
+                {% for article in derniersArticles %}
+                    <li>{{ article.title }} — <em>{{ article.createdAt|date('d/m/Y H:i') }}</em></li>
+                {% else %}
+                    <li>Aucun article.</li>
+                {% endfor %}
+            </ul>
+
+            <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-400">📚 Derniers utilisateurs</h3>
+            <ul class="list-disc list-inside text-sm text-gray-300">
+                {% for user in derniersUtilisateurs %}
+                    <li>{{ user.pseudo ?? user.email }}</li>
+                {% else %}
+                    <li>Aucun utilisateur récent.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

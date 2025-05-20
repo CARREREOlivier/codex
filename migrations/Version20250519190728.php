@@ -27,13 +27,13 @@ final class Version20250519190728 extends AbstractMigration
             ALTER TABLE article CHANGE updated_at updated_at DATETIME DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE article ADD CONSTRAINT FK_23A0E66F675F31B FOREIGN KEY (author_id) REFERENCES user (id)
+            ALTER TABLE article ADD CONSTRAINT FK_23A0E66F675F31B FOREIGN KEY (author_id) REFERENCES users (id)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_23A0E66F675F31B ON article (author_id)
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE user CHANGE roles roles JSON NOT NULL, CHANGE confirmation_token confirmation_token VARCHAR(255) DEFAULT NULL
+            ALTER TABLE users CHANGE roles roles JSON NOT NULL, CHANGE confirmation_token confirmation_token VARCHAR(255) DEFAULT NULL
         SQL);
     }
 
@@ -53,7 +53,7 @@ final class Version20250519190728 extends AbstractMigration
             ALTER TABLE article CHANGE updated_at updated_at DATETIME DEFAULT 'NULL' COMMENT '(DC2Type:datetime_immutable)'
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE user CHANGE roles roles LONGTEXT NOT NULL COLLATE `utf8mb4_bin`, CHANGE confirmation_token confirmation_token VARCHAR(255) DEFAULT 'NULL'
+            ALTER TABLE users CHANGE roles roles LONGTEXT NOT NULL COLLATE `utf8mb4_bin`, CHANGE confirmation_token confirmation_token VARCHAR(255) DEFAULT 'NULL'
         SQL);
     }
 }

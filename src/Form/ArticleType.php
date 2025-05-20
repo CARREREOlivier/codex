@@ -43,8 +43,8 @@ class ArticleType extends AbstractType
             'choice_label' => 'titre',
             'query_builder' => function (OeuvreRepository $repo) use ($options) {
                 return $repo->createQueryBuilder('o')
-                    ->where('o.user = :user')
-                    ->setParameter('user', $options['user']);
+                    ->where('o.users = :user')
+                    ->setParameter('user', $options['users']);
             },
         ]);
     }
@@ -53,7 +53,7 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
-            'user' => null,
+            'users' => null,
         ]);
     }
 }

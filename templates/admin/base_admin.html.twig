@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin | {{ block('page_title') }}{% endblock %}
+
+{% block main_container %}
+    <div class="min-h-screen bg-[#1f1f1f] text-white font-sans">
+        <!-- Barre de navigation admin -->
+        <header class="bg-black text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <h1 class="text-2xl font-bold">🛠️ Backoffice</h1>
+                <nav class="space-x-6 text-sm uppercase font-semibold">
+                    <a href="{{ path('admin_dashboard') }}" class="hover:underline">Tableau de bord</a>
+                    <a href="{{ path('admin_articles_index') }}" class="hover:underline">Articles</a>
+                    <a href="{{ path('admin_oeuvres_index') }}" class="hover:underline">Œuvres</a>
+                    <a href="{{ path('admin_users_index') }}" class="hover:underline">Utilisateurs</a>
+                    <a href="{{ path('app_homepage') }}" class="hover:underline">← Revenir au site</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Contenu principal -->
+        <main class="max-w-7xl mx-auto px-6 py-10">
+            {% block body %}{% endblock %}
+        </main>
+    </div>
+{% endblock %}
