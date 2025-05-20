@@ -77,10 +77,15 @@ class AdminController extends AbstractController
     }
 
     #[Route('/oeuvres', name: 'oeuvres_index')]
-    public function oeuvresIndex(): Response
+    public function oeuvresIndex(OeuvreRepository $oeuvreRepository): Response
     {
-        return $this->render('admin/oeuvres/index.html.twig');
+        $oeuvres = $oeuvreRepository->findBy([], ['createdAt' => 'DESC']);
+
+        return $this->render('admin/oeuvres/index.html.twig', [
+            'oeuvres' => $oeuvres,
+        ]);
     }
+
 
     #[Route('/utilisateurs', name: 'users_index')]
     public function usersIndex(UserRepository $userRepository): Response

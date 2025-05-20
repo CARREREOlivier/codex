@@ -11,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: OeuvreRepository::class)]
 class Oeuvre
 {
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->article = new ArrayCollection();
+    }
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -32,6 +37,9 @@ class Oeuvre
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private ?\DateTimeImmutable $createdAt = null;
+
     /**
      * @var Collection<int, Article>
      */
@@ -40,12 +48,6 @@ class Oeuvre
 
     #[ORM\OneToMany(mappedBy: 'oeuvre', targetEntity: Article::class)]
     private Collection $articles;
-
-
-    public function __construct()
-    {
-        $this->article = new ArrayCollection();
-    }
 
 
     public function getId(): ?int
@@ -117,6 +119,16 @@ class Oeuvre
         return $this->articles;
     }
 
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
 
 
     public function addArticle(Article $article): static

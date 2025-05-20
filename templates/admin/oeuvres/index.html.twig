@@ -1,20 +1,46 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Hello Admin/OeuvreController!{% endblock %}
+{% block page_title %}Œuvres{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Projets/blog_litteraire/src/Controller/Admin/OeuvreController.php</code></li>
-        <li>Your template at <code>C:/Projets/blog_litteraire/templates/admin/oeuvre/index.html.twig</code></li>
-    </ul>
-</div>
+    <h1 class="text-3xl font-bold mb-8">📚 Œuvres</h1>
+    <div class="mb-6 text-right">
+        <a href="{{ path('app_oeuvre_new') }}"
+           class="inline-block bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow text-sm font-semibold">
+            ➕ Créer une œuvre
+        </a>
+    </div>
+    <table class="w-full table-auto text-left text-white bg-[#2d2d2d] rounded-xl overflow-hidden">
+        <thead class="bg-[#15110b] text-gray-300 uppercase text-sm tracking-wider">
+        <tr>
+            <th class="px-4 py-3">Titre</th>
+            <th class="px-4 py-3">Auteur</th>
+            <th class="px-4 py-3">Type</th>
+            <th class="px-4 py-3">Articles liés</th>
+            <th class="px-4 py-3">Créée le</th>
+            <th class="px-4 py-3">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="text-sm divide-y divide-gray-600">
+        {% for oeuvre in oeuvres %}
+            <tr>
+                <td class="px-4 py-3">{{ oeuvre.titre }}</td>
+                <td class="px-4 py-3">{{ oeuvre.user.pseudo }}</td>
+                <td class="px-4 py-3">{{ oeuvre.type }}</td>
+                <td class="px-4 py-3">{{ oeuvre.articles|length }}</td>
+                <td class="px-4 py-3">{{ oeuvre.createdAt ? oeuvre.createdAt|date('d/m/Y H:i') : '—' }}</td>
+                <td class="px-4 py-3 space-x-2">
+                    <a href="{{ path('app_oeuvre_show', {'slug': oeuvre.slug}) }}"
+                       class="text-blue-400 hover:text-blue-600" title="Voir">📖</a>
+                    <a href="{{ path('app_oeuvre_edit', {'slug': oeuvre.slug}) }}"
+                       class="text-yellow-400 hover:text-yellow-600" title="Modifier">✏️</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="px-4 py-6 text-center text-gray-400">Aucune œuvre enregistrée.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

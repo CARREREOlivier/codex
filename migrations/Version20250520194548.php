@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250519190728 extends AbstractMigration
+final class Version20250520194548 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -27,13 +27,10 @@ final class Version20250519190728 extends AbstractMigration
             ALTER TABLE article CHANGE updated_at updated_at DATETIME DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE article ADD CONSTRAINT FK_23A0E66F675F31B FOREIGN KEY (author_id) REFERENCES users (id)
+            ALTER TABLE oeuvre ADD created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)'
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE INDEX IDX_23A0E66F675F31B ON article (author_id)
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE users CHANGE roles roles JSON NOT NULL, CHANGE confirmation_token confirmation_token VARCHAR(255) DEFAULT NULL
+            ALTER TABLE user CHANGE roles roles JSON NOT NULL, CHANGE created_at created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)', CHANGE confirmation_token confirmation_token VARCHAR(255) DEFAULT NULL
         SQL);
     }
 
@@ -44,16 +41,13 @@ final class Version20250519190728 extends AbstractMigration
             DROP TABLE messenger_messages
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE article DROP FOREIGN KEY FK_23A0E66F675F31B
-        SQL);
-        $this->addSql(<<<'SQL'
-            DROP INDEX IDX_23A0E66F675F31B ON article
-        SQL);
-        $this->addSql(<<<'SQL'
             ALTER TABLE article CHANGE updated_at updated_at DATETIME DEFAULT 'NULL' COMMENT '(DC2Type:datetime_immutable)'
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE users CHANGE roles roles LONGTEXT NOT NULL COLLATE `utf8mb4_bin`, CHANGE confirmation_token confirmation_token VARCHAR(255) DEFAULT 'NULL'
+            ALTER TABLE oeuvre DROP created_at
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE user CHANGE roles roles LONGTEXT NOT NULL COLLATE `utf8mb4_bin`, CHANGE created_at created_at DATETIME NOT NULL, CHANGE confirmation_token confirmation_token VARCHAR(255) DEFAULT 'NULL'
         SQL);
     }
 }
