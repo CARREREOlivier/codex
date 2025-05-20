@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'articles/base_articles.html.twig' %}
 
 {% block title %}New Article{% endblock %}
 
 {% block body %}
-    <h1 class="text-4xl font-serif text-center mb-6 border-b pb-2">Créer un nouvel article</h1>
+    <h1 class="text-5xl font-bold mb-8 text-center text-white">Créer un nouvel article</h1>
 
     {% include 'articles/_form.html.twig' with {'form': form} %}
 

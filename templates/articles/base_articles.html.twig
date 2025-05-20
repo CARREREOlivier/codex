@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block main_container %}
+    <div class="bg-[#15110b] relative w-screen min-h-screen overflow-hidden text-ink font-serif">
+        <!-- Image de fond pour la section articles -->
+        <img src="{{ asset('uploads/bg_articles_2.webp') }}" alt="Fond Articles"
+             class="absolute inset-0 w-full h-full object-cover z-0">
+        <div class="absolute inset-0 bg-[#3d2c20] bg-opacity-60 z-0"></div>
+
+        <div class=" relative z-10 px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

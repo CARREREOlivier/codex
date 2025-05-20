@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[IsGranted('ROLE_ADMIN')]
 #[Route('/oeuvres')]
 final class OeuvreController extends AbstractController
 {
@@ -41,7 +40,7 @@ final class OeuvreController extends AbstractController
         SluggerInterface $slugger,
         EntityManagerInterface $entityManager
     ): Response {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $oeuvre = new Oeuvre();
         $form = $this->createForm(OeuvreType::class, $oeuvre);

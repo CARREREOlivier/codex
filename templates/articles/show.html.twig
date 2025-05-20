@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'articles/base_articles.html.twig' %}
 
 {% block title %}Détail de l'article{% endblock %}
 
 {% block body %}
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-8 ">
         <div class="bg-[#fdf6e3] p-8 rounded-xl shadow-md max-w-3xl mx-auto">
             <h1 class="text-4xl font-serif text-center mb-6 border-b pb-2">📜 {{ article.title }}</h1>
             <div class="mt-8 flex justify-between items-center">
-                <a href="{{ path('app_admin_article_index') }}"
+                <a href="{{ path('app_articles_index') }}"
                    class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded shadow text-sm">
                     ← Retour à la liste
                 </a>

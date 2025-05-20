@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'articles/base_articles.html.twig' %}
 
 {% block title %}Modifier l'article{% endblock %}
 
 {% block body %}
-    <h1>Modifier un article</h1>
+    <h1 class="text-5xl font-bold mb-8 text-center text-white">Modifier un article</h1>
 
     {{ include('articles/_form.html.twig', {'button_label': 'Mettre à Jour'}) }}
 
