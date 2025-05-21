@@ -16,6 +16,7 @@
             <th class="px-4 py-3">Titre</th>
             <th class="px-4 py-3">Auteur</th>
             <th class="px-4 py-3">Type</th>
+            <th class="px-4 py-3">Description</th>
             <th class="px-4 py-3">Articles liés</th>
             <th class="px-4 py-3">Créée le</th>
             <th class="px-4 py-3">Actions</th>
@@ -27,6 +28,9 @@
                 <td class="px-4 py-3">{{ oeuvre.titre }}</td>
                 <td class="px-4 py-3">{{ oeuvre.user.pseudo }}</td>
                 <td class="px-4 py-3">{{ oeuvre.type }}</td>
+                <td class="px-4 py-3">
+                    {{ oeuvre.description ? oeuvre.description|striptags|slice(0, 60) ~ '…' : '—' }}
+                </td>
                 <td class="px-4 py-3">{{ oeuvre.articles|length }}</td>
                 <td class="px-4 py-3">{{ oeuvre.createdAt ? oeuvre.createdAt|date('d/m/Y H:i') : '—' }}</td>
                 <td class="px-4 py-3 space-x-2">
@@ -34,6 +38,11 @@
                        class="text-blue-400 hover:text-blue-600" title="Voir">📖</a>
                     <a href="{{ path('app_oeuvre_edit', {'slug': oeuvre.slug}) }}"
                        class="text-yellow-400 hover:text-yellow-600" title="Modifier">✏️</a>
+                    <form method="post" action="{{ path('app_oeuvre_delete', {'slug': oeuvre.slug}) }}" onsubmit="return confirm('Confirmer la suppression de cette œuvre ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ oeuvre.id) }}">
+                        <button type="submit" class="text-red-500 hover:text-red-700" title="Supprimer">🗑️</button>
+                    </form>
+
                 </td>
             </tr>
         {% else %}

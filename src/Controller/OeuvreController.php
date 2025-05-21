@@ -105,15 +105,26 @@ final class OeuvreController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/delete', name: 'app_oeuvre_delete', methods: ['POST'])]
-    public function delete(Request $request, Oeuvre $oeuvre, EntityManagerInterface $entityManager): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        if ($this->isCsrfTokenValid('delete'.$oeuvre->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($oeuvre);
-            $entityManager->flush();
+    #[Route('/oeuvres/{slug}', name: 'app_oeuvre_delete', methods: ['POST'])]
+    public function delete(
+        string $slug,
+        OeuvreRepository $repo,
+        Request $request,
+        EntityManagerInterface $em
+    ): Response {
+        $oeuvre = $repo->findOneBy(['slug' => $slug]);
+
+        if (!$oeuvre) {
+            throw $this->createNotFoundException('Œuvre introuvable.');
         }
 
-        return $this->redirectToRoute('app_oeuvre_index', [], Response::HTTP_SEE_OTHER);
+        if ($this->isCsrfTokenValid('delete' . $oeuvre->getId(), $request->request->get('_token'))) {
+            $em->remove($oeuvre);
+            $em->flush();
+            $this->addFlash('success', 'Œuvre supprimée.');
+        }
+
+        return $this->redirectToRoute('admin_oeuvres_index');
     }
+
 }
