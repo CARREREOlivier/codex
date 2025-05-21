@@ -49,9 +49,11 @@
     </div>
 
     <div class="mt-8 text-center">
+        {% if is_granted('ROLE_USER') %}
         <a href="{{ path('app_articles_new') }}"
            class="inline-block bg-accent hover:bg-amber-950 text-white px-6 py-3 rounded-full shadow-lg text-lg transition">
             ➕ Créer un nouvel article
         </a>
+        {% endif %}
     </div>
 {% endblock %}

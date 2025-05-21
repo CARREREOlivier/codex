@@ -40,7 +40,8 @@ final class OeuvreController extends AbstractController
         SluggerInterface $slugger,
         EntityManagerInterface $entityManager
     ): Response {
-        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+
 
         $oeuvre = new Oeuvre();
         $form = $this->createForm(OeuvreType::class, $oeuvre);
@@ -73,9 +74,22 @@ final class OeuvreController extends AbstractController
             throw $this->createNotFoundException('Œuvre non trouvée.');
         }
 
+        $user = $this->getUser();
+        $articles = [];
+
+        foreach ($oeuvre->getArticles() as $article) {
+            $isPublished = $article->getStatus()->value === 'publié';
+            $isAuthor = $user && $article->getAuthor() === $user;
+            $isAdmin = $user && in_array('ROLE_ADMIN', $user->getRoles(), true);
+
+            if ($isPublished || $isAuthor || $isAdmin) {
+                $articles[] = $article;
+            }
+        }
+
         return $this->render('oeuvres/show.html.twig', [
             'oeuvre' => $oeuvre,
-            'articles'=>$oeuvre->getArticles(),
+            'articles' => $articles,
         ]);
     }
 
@@ -88,7 +102,8 @@ final class OeuvreController extends AbstractController
             throw $this->createNotFoundException('Œuvre non trouvée.');
         }
 
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('OEUVRE_EDIT', $oeuvre);
+
 
         $form = $this->createForm(OeuvreType::class, $oeuvre);
         $form->handleRequest($request);
@@ -117,6 +132,7 @@ final class OeuvreController extends AbstractController
         if (!$oeuvre) {
             throw $this->createNotFoundException('Œuvre introuvable.');
         }
+        $this->denyAccessUnlessGranted('OEUVRE_EDIT', $oeuvre);
 
         if ($this->isCsrfTokenValid('delete' . $oeuvre->getId(), $request->request->get('_token'))) {
             $em->remove($oeuvre);

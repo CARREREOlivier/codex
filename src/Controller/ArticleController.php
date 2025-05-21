@@ -173,7 +173,7 @@ class ArticleController extends AbstractController
         $article->setAuthor($this->getUser());
 
         $form = $this->createForm(ArticleType::class, $article, [
-            'users' => $this->getUser(),
+            'user' => $this->getUser(),
         ]);
         $form->handleRequest($request);
 
@@ -192,7 +192,10 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_article_show', ['slug' => $article->getSlug()]);
+            return $this->redirectToRoute('app_article_show', [
+                'slugOeuvre' => $article->getOeuvre()->getSlug(),
+                'slug' => $article->getSlug(),
+            ]);
         }
 
         return $this->render('articles/new.html.twig', [
