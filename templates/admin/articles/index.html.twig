@@ -39,6 +39,16 @@
                         slugOeuvre: article.oeuvre.slug,
                         slug: article.slug
                     }) }}" class="text-yellow-400 hover:text-yellow-600" title="Modifier">✏️</a>
+                    <form method="post"
+                          action="{{ path('app_article_delete', {
+                              slugOeuvre: article.oeuvre.slug,
+                              slug: article.slug
+                          }) }}"
+                          onsubmit="return confirm('Confirmer la suppression de cet article ?');"
+                          style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                        <button type="submit" class="text-red-500 hover:text-red-700" title="Supprimer">🗑️</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
