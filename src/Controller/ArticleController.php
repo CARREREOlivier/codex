@@ -124,7 +124,7 @@ class ArticleController extends AbstractController
         }
 
         $form = $this->createForm(ArticleType::class, $article, [
-            'users' => $this->getUser(),
+            'user' => $this->getUser(),
         ]);
         $form->handleRequest($request);
 
