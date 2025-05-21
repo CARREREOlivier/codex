@@ -123,6 +123,8 @@ class ArticleController extends AbstractController
             throw $this->createNotFoundException('Article non trouvé.');
         }
 
+        //vérification via Voter
+        $this->denyAccessUnlessGranted('ARTICLE_EDIT', $article);
         $form = $this->createForm(ArticleType::class, $article, [
             'user' => $this->getUser(),
         ]);

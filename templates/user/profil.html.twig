@@ -1,0 +1,25 @@
+{% extends 'user/base_user.html.twig' %}
+
+{% block title %}Mes informations{% endblock %}
+
+{% block body %}
+    <h1 class="text-3xl font-bold mb-8 text-center">👤 Mes informations</h1>
+
+    <div class="max-w-xl mx-auto bg-[#2d2d2d] text-white p-6 rounded-xl shadow-md space-y-6">
+        <div>
+            <h2 class="text-sm uppercase text-gray-400">Pseudo</h2>
+            <p class="text-lg font-medium">{{ user.pseudo }}</p>
+        </div>
+        <div>
+            <h2 class="text-sm uppercase text-gray-400">Email</h2>
+            <p class="text-lg font-medium">{{ user.email }}</p>
+        </div>
+
+        <div class="text-center mt-8">
+            <a href="{{ path('user_password_edit') }}"
+               class="inline-block bg-accent hover:bg-amber-800 text-white px-5 py-2 rounded shadow text-sm font-semibold">
+                🔐 Modifier mon mot de passe
+            </a>
+        </div>
+    </div>
+{% endblock %}

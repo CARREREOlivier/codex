@@ -28,6 +28,7 @@
                 {% endblock %}
 
                 {% block card_footer %}
+                    {% if is_granted('ARTICLE_EDIT', article) %}
                     <div class="flex justify-end space-x-4 mt-4">
                         <a href="{{ path('app_article_show', {
                             slugOeuvre: article.oeuvre.slug,
@@ -39,6 +40,7 @@
                             slug: article.slug}) }}"
                            class="text-yellow-600 hover:text-yellow-800" title="Modifier">✏️</a>
                     </div>
+                    {% endif %}
                 {% endblock %}
             {% endembed %}
         {% else %}

@@ -13,9 +13,7 @@
                 </a>
 
                 <div class="flex gap-4 items-center">
-
-
-
+                    {% if is_granted('ARTICLE_EDIT', article) %}
                     <a href="{{ path('app_article_show', {
                         slugOeuvre: article.oeuvre.slug,
                         slug: article.slug
@@ -25,6 +23,7 @@
                     </a>
 
                     {{ include('articles/_delete_form.html.twig') }}
+                    {% endif %}
                 </div>
                 <div>
                     <h2 class="font-semibold text-gray-600">Statut :</h2>
