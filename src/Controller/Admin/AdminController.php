@@ -70,11 +70,11 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/articles', name: 'articles_index')]
-    public function articlesIndex(): Response
-    {
-        return $this->render('admin/articles/index.html.twig');
-    }
+    //#[Route('/articles', name: 'articles_index')]
+    //public function articlesIndex(): Response
+    //{
+    //    return $this->render('admin/articles/index.html.twig');
+    //}
 
     #[Route('/oeuvres', name: 'oeuvres_index')]
     public function oeuvresIndex(OeuvreRepository $oeuvreRepository): Response

@@ -1,0 +1,51 @@
+
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block page_title %}Articles{% endblock %}
+
+{% block body %}
+    <h1 class="text-3xl font-bold mb-8">📄 Articles</h1>
+    <div class="mb-6 text-right">
+        <a href="{{ path('app_articles_new') }}"
+           class="inline-block bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow text-sm font-semibold">
+            ➕ Créer un article
+        </a>
+    </div>
+    <table class="w-full table-auto text-left text-white bg-[#2d2d2d] rounded-xl overflow-hidden">
+        <thead class="bg-[#15110b] text-gray-300 uppercase text-sm tracking-wider">
+        <tr>
+            <th class="px-4 py-3">Titre</th>
+            <th class="px-4 py-3">Statut</th>
+            <th class="px-4 py-3">Auteur</th>
+            <th class="px-4 py-3">Œuvre</th>
+            <th class="px-4 py-3">Créé le</th>
+            <th class="px-4 py-3">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="text-sm divide-y divide-gray-600">
+        {% for article in articles %}
+            <tr>
+                <td class="px-4 py-3">{{ article.title }}</td>
+                <td class="px-4 py-3">{{ article.status.value|capitalize }}</td>
+                <td class="px-4 py-3">{{ article.author ? article.author.pseudo : '—' }}</td>
+                <td class="px-4 py-3">{{ article.oeuvre ? article.oeuvre.titre : '—' }}</td>
+                <td class="px-4 py-3">{{ article.createdAt ? article.createdAt|date('d/m/Y H:i') : '—' }}</td>
+                <td class="px-4 py-3 space-x-2">
+                    <a href="{{ path('app_article_show', {
+                        slugOeuvre: article.oeuvre.slug,
+                        slug: article.slug
+                    }) }}" class="text-blue-400 hover:text-blue-600" title="Voir">📖</a>
+                    <a href="{{ path('app_article_edit', {
+                        slugOeuvre: article.oeuvre.slug,
+                        slug: article.slug
+                    }) }}" class="text-yellow-400 hover:text-yellow-600" title="Modifier">✏️</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" class="px-4 py-6 text-center text-gray-400">Aucun article trouvé.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

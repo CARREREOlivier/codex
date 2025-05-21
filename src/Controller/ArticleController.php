@@ -40,7 +40,7 @@ class ArticleController extends AbstractController
         $user = $this->getUser();
 
         // Vérifier si l'utilisateur a des œuvres
-        $oeuvres = $oeuvreRepository->findBy(['users' => $user]);
+        $oeuvres = $oeuvreRepository->findBy(['user' => $user]);
 
         if (empty($oeuvres)) {
             $defaultTitle = 'Articles Non Classés de ' . $user->getPseudo();
@@ -62,7 +62,7 @@ class ArticleController extends AbstractController
         $article = new Article();
         $article->setAuthor($this->getUser());
         $form = $this->createForm(ArticleType::class, $article, [
-            'users' => $user,
+            'user' => $user,
         ]);
         $form->handleRequest($request);
 
