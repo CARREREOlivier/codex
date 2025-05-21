@@ -1,0 +1,19 @@
+{% extends 'user/base_user.html.twig' %}
+
+{% block title %}Mon espace{% endblock %}
+
+{% block body %}
+    <div class="max-w-4xl mx-auto py-12 px-4">
+        <h1 class="text-3xl font-bold mb-8 text-center">👤 Mon espace personnel</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-white">
+            <div class="bg-[#2d2d2d] p-6 rounded-lg shadow">
+                <h2 class="text-lg text-gray-300">Mes articles</h2>
+                <p class="text-4xl font-bold text-accent mt-2">{{ nbArticles }}</p>
+            </div>
+            <div class="bg-[#2d2d2d] p-6 rounded-lg shadow">
+                <h2 class="text-lg text-gray-300">Mes œuvres</h2>
+                <p class="text-4xl font-bold text-accent mt-2">{{ nbOeuvres }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

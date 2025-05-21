@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace personnel | {{ block('page_title') }}{% endblock %}
+
+{% block main_container %}
+    <div class="bg-[#15110b] relative w-screen min-h-screen overflow-hidden text-ink font-serif">
+        <!-- Fond personnalisé -->
+        <img src="{{ asset('uploads/bg_user.webp') }}" alt="Fond Espace Personnel"
+             class="absolute inset-0 w-full h-full object-cover z-0">
+        <div class="absolute inset-0 bg-[#15110b]/80 z-0"></div>
+        <!-- Contenu centré -->
+        <div class="relative z-10 px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
