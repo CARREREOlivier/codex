@@ -1,4 +1,9 @@
-<form method="post" action="{{ path('app_article_delete', {'slug': article.slug}) }}" onsubmit="return confirm('L\'effacement est définitif. Etes vous sur de vouloir effacer cet article?');">
+<form method="post" action="{{ path('app_article_delete', {'slug': article.slug}) }}"
+      onsubmit="return confirm('L\'effacement est définitif. Etes vous sur de vouloir effacer cet article?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-    <button class="btn">Effacer</button>
+
+    <button type="submit"
+            class="{{ compact ? 'bg-red-600 hover:bg-red-800 text-white px-3 py-1 rounded text-sm' : 'flex items-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow text-sm' }}">
+        🗑️{% if not compact %} Supprimer{% endif %}
+    </button>
 </form>

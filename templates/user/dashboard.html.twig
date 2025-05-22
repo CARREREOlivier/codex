@@ -1,19 +1,120 @@
 {% extends 'user/base_user.html.twig' %}
 
-{% block title %}Mon espace{% endblock %}
+{% block title %}👤 Mon Grimoire{% endblock %}
 
 {% block body %}
-    <div class="max-w-4xl mx-auto py-12 px-4">
-        <h1 class="text-3xl font-bold mb-8 text-center">👤 Mon espace personnel</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-white">
-            <div class="bg-[#2d2d2d] p-6 rounded-lg shadow">
-                <h2 class="text-lg text-gray-300">Mes articles</h2>
-                <p class="text-4xl font-bold text-accent mt-2">{{ nbArticles }}</p>
+    <div class="container mx-auto px-4 py-12">
+        <div class="bg-[#fdf6e3] p-8 rounded-xl shadow-md max-w-5xl mx-auto">
+
+            <h1 class="text-4xl font-serif text-center mb-10 border-b pb-2">👤 Mon grimoire</h1>
+
+            <!-- SECTION 1 : PROFIL -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-6 text-gray-800">🧍 Mon Profil</h2>
+
+                <div class="space-y-4 text-gray-800">
+                    <div>
+                        <h3 class="text-sm uppercase text-gray-500">Pseudo</h3>
+                        <p class="text-lg font-medium">{{ user.pseudo }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm uppercase text-gray-500">Email</h3>
+                        <p class="text-lg font-medium">{{ user.email }}</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <a href="{{ path('user_password_edit') }}"
+                           class="bg-accent hover:bg-amber-800 text-white px-5 py-2 rounded shadow text-sm font-semibold">
+                            🔐 Modifier mes informations
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <div class="flex items-center justify-center my-16">
+                <div class="border-t-2 border-[#3d2c20] w-1/4"></div>
+                <span class="mx-6 text-[#3d2c20] text-2xl"> ☙✦ ✧ ✦❧</span>
+                <div class="border-t-2 border-[#3d2c20] w-1/4"></div>
             </div>
-            <div class="bg-[#2d2d2d] p-6 rounded-lg shadow">
-                <h2 class="text-lg text-gray-300">Mes œuvres</h2>
-                <p class="text-4xl font-bold text-accent mt-2">{{ nbOeuvres }}</p>
+
+            <!-- SECTION 2 : OEUVRES ET ARTICLES -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-6 text-gray-800">📚 Mes Œuvres et Articles</h2>
+
+                {% if oeuvres is empty %}
+                    <p class="text-gray-500">Vous n’avez pas encore créé d’œuvre.</p>
+                {% else %}
+                    <div class="space-y-6">
+                        {% for oeuvre in oeuvres %}
+                            <div x-data="{ open: false }" class="border border-gray-300 rounded-lg p-4 bg-white shadow">
+
+                                <!-- Titre + actions oeuvre -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3 cursor-pointer" @click="open = !open">
+                                        <button type="button" class="text-accent text-xl focus:outline-none">
+                                            <span x-show="!open">➕</span>
+                                            <span x-show="open">➖</span>
+                                        </button>
+                                        <h3 class="text-xl font-bold text-gray-800">{{ oeuvre.titre }}</h3>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <!-- Voir œuvre -->
+                                        <a href="{{ path('app_oeuvre_show', { slug: oeuvre.slug }) }}"
+                                           class="bg-blue-600 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm" title="Voir">📖</a>
+                                        <!-- Modifier œuvre -->
+                                        <a href="{{ path('app_oeuvre_edit', { slug: oeuvre.slug }) }}"
+                                           class="bg-yellow-600 hover:bg-yellow-800 text-white px-3 py-1 rounded text-sm" title="Modifier">✏️</a>
+                                        <!-- Supprimer œuvre -->
+                                        {{ include('oeuvres/_delete_form.html.twig', { oeuvre: oeuvre, compact: true }) }}
+                                    </div>
+                                </div>
+
+                                <!-- Liste articles -->
+                                <div x-show="open" class="mt-4" x-transition>
+                                    {% set related_articles = articles|filter(a => a.oeuvre and a.oeuvre.id == oeuvre.id) %}
+
+                                    {% if related_articles is not empty %}
+                                        <ul class="space-y-2 mt-2">
+                                            {% for article in related_articles %}
+                                                <li class="flex items-center justify-between bg-gray-100 p-3 rounded">
+                                                    <span class="flex-1 text-gray-800">
+                                                        {{ article.title }}
+                                                        <span class="text-xs text-gray-500 ml-2">
+                                                            ({{ article.status.value }})
+                                                        </span>
+                                                    </span>
+                                                    <span class="flex items-center space-x-2">
+                                                        <a href="{{ path('app_article_show', {
+                                                            slugOeuvre: article.oeuvre.slug,
+                                                            slug: article.slug
+                                                        }) }}"
+                                                           class="bg-blue-600 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm" title="Voir">📖</a>
+
+                                                        <a href="{{ path('app_article_edit', {
+                                                            slugOeuvre: article.oeuvre.slug,
+                                                            slug: article.slug
+                                                        }) }}"
+                                                           class="bg-yellow-600 hover:bg-yellow-800 text-white px-3 py-1 rounded text-sm" title="Modifier">✏️</a>
+
+                                                        {{ include('articles/_delete_form.html.twig', { article: article, compact: true }) }}
+                                                    </span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p class="text-sm text-gray-500 mt-2">Aucun article lié à cette œuvre.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </section>
+            <div class="flex items-center justify-center my-16">
+                <div class="border-t-2 border-[#3d2c20] w-1/4"></div>
+                <span class="mx-6 text-[#3d2c20] text-2xl"> ☙✦ ✧ ✦❧</span>
+                <div class="border-t-2 border-[#3d2c20] w-1/4"></div>
             </div>
+
         </div>
     </div>
 {% endblock %}

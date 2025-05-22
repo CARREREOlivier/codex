@@ -12,20 +12,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/mon-espace', name: 'user_')]
+#[Route('//mon-espace', name: 'user_')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'dashboard')]
-    public function dashboard(ArticleRepository $articleRepository, OeuvreRepository $oeuvreRepository): Response
+    public function dashboard(OeuvreRepository $oeuvreRepo, ArticleRepository $articleRepo): Response
     {
         $user = $this->getUser();
 
-        $nbArticles = $articleRepository->count(['author' => $user]);
-        $nbOeuvres = $oeuvreRepository->count(['user' => $user]);
+        $oeuvres = $oeuvreRepo->findBy(['user' => $user]);
+        $articles = $articleRepo->findBy(['author' => $user]);
 
         return $this->render('user/dashboard.html.twig', [
-            'nbArticles' => $nbArticles,
-            'nbOeuvres' => $nbOeuvres,
+            'user' => $user,
+            'oeuvres' => $oeuvres,
+            'articles' => $articles,
         ]);
     }
 
@@ -70,5 +71,7 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 
 }
