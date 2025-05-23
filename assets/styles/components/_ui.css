@@ -1,0 +1,9 @@
+:root {
+    --parchmentColor: #fefaf1;
+    --inkColor: #3b2f2f;
+    --accentColor: #7a5c3e;
+    --accentDarkColor: #15110b;
+    --overlayBrown: rgba(61, 44, 32, 0.6);
+    --overlayBlack: rgba(0, 0, 0, 0.6);
+    --separatorColor: #3d2c20;
+}

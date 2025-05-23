@@ -1,0 +1,35 @@
+@layer components {
+    /* === VIDEO SECTION === */
+
+    .video-section-container {
+        @apply relative h-screen w-full overflow-hidden;
+    }
+
+    .video-homepage {
+        @apply absolute top-0 left-0 w-full h-full object-cover block;
+    }
+
+    .video-overlay-dark {
+        @apply absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 z-[1];
+    }
+
+    .video-fade-overlay {
+        @apply z-[1];
+    }
+
+    .video-content {
+        @apply relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4;
+    }
+
+    .video-title {
+        @apply text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg;
+    }
+
+    .video-paragraph {
+        @apply italic text-lg max-w-2xl drop-shadow;
+    }
+
+    .video-button {
+        @apply mt-8 bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition duration-300 ease-in-out inline-block;
+    }
+}

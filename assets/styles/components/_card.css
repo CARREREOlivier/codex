@@ -1,0 +1,15 @@
+@layer components {
+    /* === CARD COMPONENT === */
+
+    .card-parchment {
+        @apply bg-white bg-opacity-80 backdrop-blur-md border border-[#e0dcd3]
+        rounded-2xl shadow-md p-6 text-ink transition duration-300
+        hover:-translate-y-2 hover:shadow-xl hover:ring-4
+        hover:ring-[#FFDF00] hover:ring-opacity-50;
+    }
+
+    .card-divider {
+        @apply flex justify-center mb-4 text-2xl;
+        color: var(--accentColor);
+    }
+}
