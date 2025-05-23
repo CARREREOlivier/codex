@@ -1,0 +1,58 @@
+<section id="articles" class="articles-section">
+    <div class="articles-background-container">
+        <img src="{{ asset('uploads/bg_articles.webp') }}" alt="Fond articles" class="articles-background-image">
+        <div class="articles-background-overlay"></div>
+    </div>
+
+    <div class="articles-content">
+        <h2 class="articles-title">📰 Derniers Articles</h2>
+
+        <div class="articles-grid">
+            {% for article in articles %}
+                {% embed 'components/_card.html.twig' %}
+                    {% block card_title %}
+                        <h2 class="article-card-title">
+                            <a href="{{ path('app_article_show', {
+                                'slugOeuvre': article.oeuvre.slug,
+                                'slug': article.slug
+                            }) }}" class="article-card-link">
+                                {{ article.title }}
+                            </a>
+                        </h2>
+                    {% endblock %}
+                    {% block card_subtitle %}
+                        <p class="article-card-subtitle">
+                            Publié le {{ article.createdAt|date('d M Y') }}
+                        </p>
+                    {% endblock %}
+                    {% block card_content %}
+                        <p class="article-card-content">
+                            {{ article.content|striptags|slice(0, 200) ~ '…' }}
+                        </p>
+                    {% endblock %}
+                    {% block card_author %}
+                        {% if article.author %}
+                            <p class="article-card-author">
+                                par {{ article.author.pseudo }}
+                            </p>
+                        {% endif %}
+                    {% endblock %}
+                    {% block card_footer %}
+                        <a href="{{ path('app_article_show', {
+                            'slugOeuvre': article.oeuvre.slug,
+                            'slug': article.slug
+                        }) }}" class="article-card-footer">
+                            Lire l'article →
+                        </a>
+                    {% endblock %}
+                {% endembed %}
+            {% endfor %}
+        </div>
+
+        <div class="articles-button-container">
+            <a href="{{ path('app_articles_index') }}" class="articles-button">
+                Voir tous les articles →
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,30 @@
+<div class="video-section-container">
+    <video autoplay muted loop playsinline
+           class="video-homepage">
+        <source src="{{ asset('uploads/bg_grimoire.mp4') }}" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo en fond.
+    </video>
+    <div id="video-fade-overlay" class="video-overlay"></div>
+
+    <!-- Overlay sombre pour lisibilité -->
+    <div class="video-overlay-dark"></div>
+
+    <!-- Contenu centré sur la vidéo -->
+    <div class="video-content">
+        <h1 class="video-title">📚 Le Codex d'Uuki</h1>
+        <p class="italic text-lg max-w-2xl drop-shadow">
+            Nul ne sait vraiment qui est Uuki. Certains disent qu’il écrit depuis une tour oubliée.<br>
+            D’autres, qu’il voyage entre les mondes à travers l’encre et les pages.<br>
+            <span class="font-bold">Ce qui est certain : ses mots laissent des traces.</span>
+        </p>
+        <a href="#articles"
+           class="mt-8 bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition duration-300 ease-in-out">
+            Découvrir les Articles
+        </a>
+        <a href="#oeuvres"
+           class="mt-8 bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition duration-300 ease-in-out">
+            Découvrir les Oeuvres
+        </a>
+    </div>
+</div>
+

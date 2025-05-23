@@ -23,6 +23,13 @@ module.exports = {
     safelist: [
         { pattern: /bg-(red|orange|purple|blue|green)-[0-9]{3}/ },
         { pattern: /shadow-.*/ },
+        'video-title',
+        'video-homepage',
+        'video-section-container',
+        'video-content',
+        'video-button',
+        'video-paragraph',
+        'video-overlay-dark'
        ],
 
     plugins: [require('@tailwindcss/typography')],

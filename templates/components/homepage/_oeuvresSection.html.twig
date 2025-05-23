@@ -1,0 +1,42 @@
+<section id="oeuvres" class="oeuvres-section">
+    <div class="oeuvres-background-container">
+        <img src="{{ asset('uploads/bg_oeuvres.webp') }}" alt="Fond Œuvres" class="oeuvres-background-image">
+        <div class="oeuvres-background-overlay"></div>
+    </div>
+
+    <div class="oeuvres-content">
+        <h2 class="oeuvres-title">📚 Œuvres Récentes</h2>
+
+        <div class="oeuvres-grid">
+            {% for oeuvre in oeuvres %}
+                {% embed 'components/_card.html.twig' %}
+                    {% block card_title %}
+                        <h2 class="oeuvre-card-title">
+                            <a href="{{ path('app_oeuvre_show', { slug: oeuvre.slug }) }}" class="oeuvre-card-link">
+                                {{ oeuvre.titre }}
+                            </a>
+                        </h2>
+                    {% endblock %}
+                    {% block card_author %}
+                        {% if oeuvre.user %}
+                            <p class="oeuvre-card-author">
+                                par {{ oeuvre.user.pseudo }}
+                            </p>
+                        {% endif %}
+                    {% endblock %}
+                    {% block card_content %}
+                        <p class="oeuvre-card-content">
+                            {{ oeuvre.description|striptags|slice(0, 200) ~ '…' }}
+                        </p>
+                    {% endblock %}
+                {% endembed %}
+            {% endfor %}
+        </div>
+
+        <div class="oeuvres-button-container">
+            <a href="{{ path('app_oeuvre_index') }}" class="oeuvres-button">
+                Voir toutes les œuvres →
+            </a>
+        </div>
+    </div>
+</section>

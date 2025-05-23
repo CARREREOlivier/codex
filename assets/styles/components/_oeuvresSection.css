@@ -1,0 +1,56 @@
+@layer components {
+    /* === OEUVRES SECTION === */
+
+    .oeuvres-section {
+        @apply relative w-screen overflow-hidden text-ink font-serif py-24 min-section-height;
+    }
+
+    .oeuvres-background-container {
+        @apply absolute inset-0 w-full h-full;
+    }
+
+    .oeuvres-background-image {
+        @apply w-full h-full object-cover;
+    }
+
+    .oeuvres-background-overlay {
+        @apply absolute inset-0 bg-[#3d2c20] bg-opacity-50;
+    }
+
+    .oeuvres-content {
+        @apply relative max-w-7xl mx-auto px-4 text-white;
+    }
+
+    .oeuvres-title {
+        @apply text-3xl font-bold text-center mb-8;
+    }
+
+    .oeuvres-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10;
+    }
+
+    .oeuvres-button-container {
+        @apply text-center mt-8;
+    }
+
+    .oeuvres-button {
+        @apply inline-block bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition;
+    }
+
+    /* === OEUVRE CARD blocks === */
+    .oeuvre-card-title {
+        @apply text-2xl font-bold text-accent mb-2;
+    }
+
+    .oeuvre-card-link {
+        @apply hover:underline;
+    }
+
+    .oeuvre-card-author {
+        @apply text-sm italic text-right text-gray-500 mt-2;
+    }
+
+    .oeuvre-card-content {
+        @apply text-base leading-relaxed;
+    }
+}

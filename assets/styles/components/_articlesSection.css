@@ -1,0 +1,64 @@
+@layer components {
+    /* === ARTICLES SECTION === */
+
+    .articles-section {
+        @apply relative w-screen overflow-hidden text-ink font-serif py-24 min-h-[60vh];
+    }
+
+    .articles-background-container {
+        @apply absolute inset-0 w-full h-full;
+    }
+
+    .articles-background-image {
+        @apply w-full h-full object-cover;
+    }
+
+    .articles-background-overlay {
+        @apply absolute inset-0 bg-[#3d2c20] bg-opacity-50;
+    }
+
+    .articles-content {
+        @apply relative max-w-7xl mx-auto px-4 text-white;
+    }
+
+    .articles-title {
+        @apply text-3xl font-bold text-center mb-8;
+    }
+
+    .articles-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10;
+    }
+
+    .articles-button-container {
+        @apply text-center mt-8;
+    }
+
+    .articles-button {
+        @apply inline-block bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition;
+    }
+
+    /* === ARTICLE CARD blocks === */
+    .article-card-title {
+        @apply text-2xl font-bold text-accent mb-2;
+    }
+
+    .article-card-link {
+        @apply hover:underline;
+    }
+
+    .article-card-subtitle {
+        @apply text-sm text-gray-500 mb-3;
+    }
+
+    .article-card-content {
+        @apply text-base leading-relaxed;
+    }
+
+    .article-card-author {
+        @apply text-sm italic text-right text-gray-500 mt-2;
+    }
+
+    .article-card-footer {
+        @apply mt-4 inline-block text-accent hover:underline font-semibold;
+    }
+}

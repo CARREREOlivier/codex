@@ -1,0 +1,17 @@
+@layer components {
+    /* === SEPARATOR COMPONENT === */
+
+    .section-separator {
+        @apply flex items-center justify-center my-16;
+    }
+
+    .section-separator-line {
+        @apply border-t-2 w-1/4;
+        border-color: var(--separatorColor);
+    }
+
+    .section-separator-icon {
+        @apply mx-6 text-2xl;
+        color: var(--separatorColor);
+    }
+}
