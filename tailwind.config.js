@@ -9,9 +9,10 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                parchment: '#f9f6ef', // ou #fdfaf4
-                ink: '#3b2f2f',
-                accent: '#7a5c3e',
+                parchment: 'var(--parchmentColor)',
+                ink: 'var(--inkColor)',
+                accent: 'var(--accentColor)',
+                'accent-dark': 'var(--accentDarkColor)',
             },
             fontFamily: {
                 serif: ['"EB Garamond"', 'serif'],

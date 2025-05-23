@@ -19,6 +19,10 @@ import 'tinymce/plugins/image';
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/table';
 import { filterArticles } from './js/filters/articlesFilter';
+import './js/videoEffects.js';
+import './js/videoOverlay.js';
+import './js/mobileMenu.js';
+import './js/cookieConsent.js';
 
 // skin CSS
 import 'tinymce/skins/ui/oxide/skin.min.css';

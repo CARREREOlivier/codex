@@ -1,10 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import "components/_ui.css";
 
 body {
-    @apply bg-[#fefaf1] text-gray-800 font-serif;
+    background-color: var(--parchmentColor);
+    color: var(--inkColor);
 }
 
 .btn-red {
@@ -46,8 +47,3 @@ body {
     min-height: clamp(500px, 80vh, 1000px);
 }
 
-.card-parchment {
-    background-image: url('/public/uploads/texture_parchemin.webp');
-    background-size: cover;
-    background-blend-mode: multiply;
-}

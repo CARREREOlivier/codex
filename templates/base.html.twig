@@ -20,100 +20,21 @@
 </head>
 
 <body class="font-serif bg-gray-50 text-gray-900">
-
+<!--Header-->
 {{ include('components/_header.html.twig') }}
-
+<!--Main-->
 {% block main_container %}
     <main>
         {% block body %}{% endblock %}
     </main>
 {% endblock %}
-
+<!--Footer-->
 {{ include('components/_footer.html.twig') }}
-
+<!--Cookies-->
 {{ include('components/_cookie_banner.html.twig') }}
-{{ encore_entry_script_tags('menuToggle') }}
+<!--Scripts JS-->
+{{ encore_entry_script_tags('app') }}
+<!--AlpineJS-->
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const video = document.querySelector('video');
-        if (video) {
-            video.playbackRate = 0.5; // Ralentir la vidéo
-
-            video.addEventListener('play', () => {
-                video.classList.add('fade-in');
-                setTimeout(() => video.classList.remove('fade-in'), 2000);
-            });
-
-            video.addEventListener('ended', () => {
-                video.classList.add('fade-out');
-            });
-
-            // Pour une boucle propre avec fade
-            video.addEventListener('timeupdate', () => {
-                if (video.duration - video.currentTime < 2) {
-                    video.classList.add('fade-out');
-                }
-            });
-
-            video.addEventListener('seeked', () => {
-                video.classList.remove('fade-out');
-                video.classList.add('fade-in');
-                setTimeout(() => video.classList.remove('fade-in'), 2000);
-            });
-        }
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const video = document.querySelector('video');
-        const overlay = document.getElementById('video-fade-overlay');
-
-        if (video && overlay) {
-            video.playbackRate = 0.5; // Ralentir la lecture
-
-            const fadeOut = () => overlay.style.opacity = 1;
-            const fadeIn = () => overlay.style.opacity = 0;
-
-            video.addEventListener('play', fadeIn);
-
-            video.addEventListener('timeupdate', () => {
-                if (video.duration - video.currentTime < 2) {
-                    fadeOut();
-                }
-            });
-
-            video.addEventListener('seeked', fadeIn);
-        }
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburgerBtn = document.getElementById('hamburger-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeMenu = document.getElementById('close-menu');
-
-        hamburgerBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('translate-x-full');
-        });
-
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.add('translate-x-full');
-        });
-    });
-</script>
-
-<script>
-    function acceptCookies() {
-        localStorage.setItem('cookiesAccepted', 'true');
-        document.getElementById('cookieBanner').classList.add('hidden');
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        if (!localStorage.getItem('cookiesAccepted')) {
-            document.getElementById('cookieBanner').classList.remove('hidden');
-        }
-    });
-</script>
 </html>
