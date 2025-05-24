@@ -41,7 +41,18 @@
                             {% endblock %}
 
                             {% block card_content %}
-                                <div class="text-gray-800 text-justify">{{ oeuvre.description|striptags|slice(0, 200) ~ '…' }}</div>
+                                <div class="text-gray-800 text-justify">{{ oeuvre.description|striptags|slice(0, 200)|replace({
+                                        '&eacute;': 'é',
+                                        '&egrave;': 'è',
+                                        '&ecirc;': 'ê',
+                                        '&agrave;': 'à',
+                                        '&nbsp;': ' ',
+                                        '&rsquo;': '\'',
+                                        '&lsquo;': '\'',
+                                        '&quot;': '"',
+                                        '&amp;': '&'
+                                    }) ~ '…' }}
+                                </div>
                             {% endblock %}
 
                             {% block card_footer %}
