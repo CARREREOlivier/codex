@@ -3,10 +3,118 @@
 {% block title %}Accueil | Le Codex d'Uuki{% endblock %}
 {% block main_container %}
     {% block body %}
-        {{ include('components/homepage/_videoSection.html.twig') }}
+        <div class="video-section-container">
+            <video autoplay muted loop playsinline onloadedmetadata="this.playbackRate=0.5" class="video-bg" style="animation: slowZoom 60s linear infinite;">
+                <source src="{{ asset('uploads/bg_grimoire.mp4') }}" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo en fond.
+            </video>
+            <div id="video-fade-overlay" class="video-overlay absolute inset-0 bg-[#3d2c20] bg-opacity-50 z-[2] transition-opacity duration-1000 opacity-0 animate-fadein"></div>
+            <div class="video-overlay-dark"></div>
+
+            <div class="video-content">
+                <h1 class="homepage-title">📚 Le Codex d'Uuki</h1>
+                <p class="video-paragraph">
+                    Nul ne sait vraiment qui est Uuki. Certains disent qu’il écrit depuis une tour oubliée.<br>
+                    D’autres, qu’il voyage entre les mondes à travers l’encre et les pages.<br>
+                    <span class="font-bold">Ce qui est certain : ses mots laissent des traces.</span>
+                </p>
+                <a href="#articles" class="homepage-button">Découvrir les Articles</a>
+                <a href="#oeuvres" class="homepage-button">Découvrir les Oeuvres</a>
+            </div>
+        </div>
+
         {{ include('components/_separator.html.twig') }}
-        {{ include('components/homepage/_articlesSection.html.twig') }}
+
+        <section id="articles" class="homepage-section">
+            <div class="homepage-background">
+                <img src="{{ asset('uploads/bg_articles.webp') }}" alt="Fond articles" class="homepage-image">
+                <div class="homepage-overlay"></div>
+            </div>
+
+            <div class="homepage-content">
+                <h2 class="homepage-section-title">📰 Derniers Articles</h2>
+
+                <div class="homepage-grid">
+                    {% for article in articles %}
+                        {% embed 'components/_card.html.twig' %}
+                            {% block card_title %}
+                                <h2 class="card-title">
+                                    <a href="{{ path('app_article_show', {
+                                        'slugOeuvre': article.oeuvre.slug,
+                                        'slug': article.slug
+                                    }) }}" class="card-link">
+                                        {{ article.title }}
+                                    </a>
+                                </h2>
+                            {% endblock %}
+                            {% block card_subtitle %}
+                                <p class="card-subtitle">Publié le {{ article.createdAt|date('d M Y') }}</p>
+                            {% endblock %}
+                            {% block card_content %}
+                                <p class="card-content">
+                                    {{ article.content|striptags|slice(0, 200) ~ '…' }}
+                                </p>
+                            {% endblock %}
+                            {% block card_author %}
+                                {% if article.author %}
+                                    <p class="card-author">par {{ article.author.pseudo }}</p>
+                                {% endif %}
+                            {% endblock %}
+                            {% block card_footer %}
+                                <a href="{{ path('app_article_show', {
+                                    'slugOeuvre': article.oeuvre.slug,
+                                    'slug': article.slug
+                                }) }}" class="card-footer">Lire l'article →</a>
+                            {% endblock %}
+                        {% endembed %}
+                    {% endfor %}
+                </div>
+
+                <div class="homepage-button-container">
+                    <a href="{{ path('app_articles_index') }}" class="homepage-button">Voir tous les articles →</a>
+                </div>
+            </div>
+        </section>
+
         {{ include('components/_separator.html.twig') }}
-        {{ include('components/homepage/_oeuvresSection.html.twig') }}
+
+        <section id="oeuvres" class="homepage-section-alt">
+            <div class="homepage-background">
+                <img src="{{ asset('uploads/bg_oeuvres.webp') }}" alt="Fond Œuvres" class="homepage-image">
+                <div class="homepage-overlay"></div>
+            </div>
+
+            <div class="homepage-content">
+                <h2 class="homepage-section-title">📚 Œuvres Récentes</h2>
+
+                <div class="homepage-grid">
+                    {% for oeuvre in oeuvres %}
+                        {% embed 'components/_card.html.twig' %}
+                            {% block card_title %}
+                                <h2 class="card-title">
+                                    <a href="{{ path('app_oeuvre_show', { slug: oeuvre.slug }) }}" class="card-link">
+                                        {{ oeuvre.titre }}
+                                    </a>
+                                </h2>
+                            {% endblock %}
+                            {% block card_author %}
+                                {% if oeuvre.user %}
+                                    <p class="card-author">par {{ oeuvre.user.pseudo }}</p>
+                                {% endif %}
+                            {% endblock %}
+                            {% block card_content %}
+                                <p class="card-content">
+                                    {{ oeuvre.description|striptags|slice(0, 200) ~ '…' }}
+                                </p>
+                            {% endblock %}
+                        {% endembed %}
+                    {% endfor %}
+                </div>
+
+                <div class="homepage-button-container">
+                    <a href="{{ path('app_oeuvre_index') }}" class="homepage-button">Voir toutes les œuvres →</a>
+                </div>
+            </div>
+        </section>
     {% endblock %}
 {% endblock %}
