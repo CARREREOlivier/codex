@@ -25,6 +25,8 @@
 {{ include('components/_cookie_banner.html.twig') }}
 <!--AlpineJS-->
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<script src="{{ asset('build/app.js') }}" defer></script>
+<!--Encore-->
+{{ encore_entry_script_tags('app') }}
+{{ encore_entry_script_tags('menuToggle') }}
 </body>
 </html>

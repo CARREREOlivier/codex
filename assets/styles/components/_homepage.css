@@ -1,0 +1,103 @@
+@layer components {
+    @keyframes fadein {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes slowZoom {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.05); }
+    }
+
+    .video-bg {
+        @apply absolute top-0 left-0 w-full h-full object-cover block;
+    }
+
+    .video-section-container {
+        @apply relative h-screen w-full overflow-hidden;
+    }
+
+    .video-overlay-dark {
+        @apply absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 z-[1];
+    }
+
+    .video-overlay {
+        @apply z-[1];
+    }
+
+    .video-content {
+        @apply relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4;
+    }
+
+    .homepage-title {
+        @apply text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg;
+    }
+
+    .video-paragraph {
+        @apply italic text-lg max-w-2xl drop-shadow;
+    }
+
+    .homepage-button {
+        @apply mt-8 bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-full shadow-lg text-lg transition duration-300 ease-in-out inline-block;
+    }
+
+    .homepage-section {
+        @apply relative w-screen overflow-hidden text-ink font-serif py-24 min-h-[60vh];
+    }
+
+    .homepage-section-alt {
+        @apply relative w-screen overflow-hidden text-ink font-serif py-24 min-section-height;
+    }
+
+    .homepage-background {
+        @apply absolute inset-0 w-full h-full;
+    }
+
+    .homepage-image {
+        @apply w-full h-full object-cover;
+    }
+
+    .homepage-overlay {
+        @apply absolute inset-0 bg-[#3d2c20] bg-opacity-50;
+    }
+
+    .homepage-content {
+        @apply relative max-w-7xl mx-auto px-4 text-white;
+    }
+
+    .homepage-section-title {
+        @apply text-3xl font-bold text-center mb-8;
+    }
+
+    .homepage-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10;
+    }
+
+    .homepage-button-container {
+        @apply text-center mt-8;
+    }
+
+    .card-title {
+        @apply text-2xl font-bold text-accent mb-2;
+    }
+
+    .card-link {
+        @apply hover:underline;
+    }
+
+    .card-subtitle {
+        @apply text-sm text-gray-500 mb-3;
+    }
+
+    .card-content {
+        @apply text-base leading-relaxed;
+    }
+
+    .card-author {
+        @apply text-sm italic text-right text-gray-500 mt-2;
+    }
+
+    .card-footer {
+        @apply mt-4 inline-block text-accent hover:underline font-semibold;
+    }
+}
