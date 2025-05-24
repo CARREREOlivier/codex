@@ -41,7 +41,7 @@
                             {% endblock %}
 
                             {% block card_content %}
-                                <div class="text-gray-800 text-justify">{{ oeuvre.description|raw }}</div>
+                                <div class="text-gray-800 text-justify">{{ oeuvre.description|striptags|slice(0, 200) ~ '…' }}</div>
                             {% endblock %}
 
                             {% block card_footer %}
