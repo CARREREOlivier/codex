@@ -27,7 +27,7 @@ class OeuvreType extends AbstractType
                     'Roman Classique' => 'Roman',
                     'Roman Screenshot' => 'Roman Screenshot',
                     'Nouvelle'=>'Nouvelle',
-                    'News' => "News"
+                    'Essai' => 'essai',
                 ],
             ]);
     }
