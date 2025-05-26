@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="turbo-cache-control" content="no-cache">
+    <title>Accueil | Le Codex d'Uuki</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/build/app.css">
+</head>
+
+<body class="font-serif bg-gray-50 text-gray-900">
+<!--Header-->
+<header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm p-4 flex flex-col md:flex-row justify-between items-center">
+
+
+        <div class="md:hidden">
+<button id="hamburger-btn" class="text-3xl text-accent focus:outline-none">
+    ☰
+</button>
+</div>
+<!--menu caché qui slide-->
+<div id="mobile-menu" class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 p-4">
+    <button id="close-menu" class="text-2xl text-red-600 p-4 float-right focus:outline-none">
+    ❌
+</button>
+
+    
+<nav class="flex flex-col space-y-4 text-lg">
+        <a href="/" class="hover:underline">Accueil</a>
+    <a href="/oeuvres" class="hover:underline">Œuvres</a>
+    <a href="/articles" class="hover:underline">Articles</a>
+    <a href="/a-propos" class="hover:underline">À propos</a>
+    </nav>
+
+        <a href="/register"  class="underline text-accent hover:text-accent-dark">
+        S'enregistrer
+    </a>
+            <a href="/login" class="underline text-accent hover:text-accent-dark">Se connecter</a>
+    
+</div>
+
+
+        <div class="flex items-center space-x-8">
+    <a href="/" class="block">
+    <img src="/uploads/site_logo.webp"
+         alt="Le Codex d'Uuki"
+         class="h-auto max-w-[60px] object-contain hover:opacity-80 transition duration-200" />
+</a>
+    
+<nav class="hidden md:flex space-x-6 text-lg">
+        <a href="/" class="hover:underline">Accueil</a>
+    <a href="/oeuvres" class="hover:underline">Œuvres</a>
+    <a href="/articles" class="hover:underline">Articles</a>
+    <a href="/a-propos" class="hover:underline">À propos</a>
+    </nav>
+</div>
+<div class="mt-4 md:mt-0 text-sm text-gray-700 flex items-center space-x-4">
+        <a href="/register"  class="underline text-accent hover:text-accent-dark">
+        S'enregistrer
+    </a>
+            <a href="/login" class="underline text-accent hover:text-accent-dark">Se connecter</a>
+    
+</div>
+
+</header>
+<!--Main-->
+            <div class="video-section-container">
+            <video autoplay muted loop playsinline onloadedmetadata="this.playbackRate=0.5" class="video-bg" style="animation: slowZoom 60s linear infinite;">
+                <source src="/uploads/bg_grimoire.mp4" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo en fond.
+            </video>
+            <div id="video-fade-overlay" class="video-overlay absolute inset-0 bg-[#3d2c20] bg-opacity-50 z-[2] transition-opacity duration-1000 opacity-0 animate-fadein"></div>
+            <div class="video-overlay-dark"></div>
+
+            <div class="video-content">
+                <h1 class="homepage-title">📚 Le Codex d'Uuki</h1>
+                <p class="video-paragraph">
+                    Nul ne sait vraiment qui est Uuki. Certains disent qu’il écrit depuis une tour oubliée.<br>
+                    D’autres, qu’il voyage entre les mondes à travers l’encre et les pages.<br>
+                    <span class="font-bold">Ce qui est certain : ses mots laissent des traces.</span>
+                </p>
+                <a href="#articles" class="homepage-button">Découvrir les Articles</a>
+                <a href="#oeuvres" class="homepage-button">Découvrir les Oeuvres</a>
+            </div>
+        </div>
+
+        <div class="section-separator">
+    <div class="section-separator-line"></div>
+    <span class="section-separator-icon">☙✦ ✧ ✦❧</span>
+    <div class="section-separator-line"></div>
+</div>
+
+
+        <section id="articles" class="homepage-section">
+            <div class="homepage-background">
+                <img src="/uploads/bg_articles.webp" alt="Fond articles" class="homepage-image">
+                <div class="homepage-overlay"></div>
+            </div>
+
+            <div class="homepage-content">
+                <h2 class="homepage-section-title">📰 Derniers Articles</h2>
+
+                <div class="homepage-grid">
+                                            <div class="card-parchment">
+                                    <h2 class="card-title">
+                                    <a href="/oeuvres/le-legat-tome-i/article/chapitre-1-arrivee-a-vilmotiere" class="card-link">
+                                        chapitre 1 : Arrivée à Vilmotière
+                                    </a>
+                                </h2>
+                                                                                                    <p class="card-author">par epsilon</p>
+                                                                                                <p class="card-subtitle">Publié le 21 May 2025</p>
+                                                                <p class="card-content">
+                                    Lorem Ipsum
+&quot;Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...&quot;
+&quot;There is no one who loves pain itself, who seeks after it and wants to have it, simply b…
+                                </p>
+                                <div class="card-divider">❧</div>
+                                    <a href="/oeuvres/le-legat-tome-i/article/chapitre-1-arrivee-a-vilmotiere" class="card-footer">Lire l'article →</a>
+                            </div>
+                                            <div class="card-parchment">
+                                    <h2 class="card-title">
+                                    <a href="/oeuvres/le-legat-tome-i/article/i-introduction" class="card-link">
+                                        I-Introduction
+                                    </a>
+                                </h2>
+                                                                                                    <p class="card-author">par epsilon</p>
+                                                                                                <p class="card-subtitle">Publié le 21 May 2025</p>
+                                                                <p class="card-content">
+                                    Lorem Ipsum
+
+&quot;Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...&quot;
+&quot;There is no one who loves pain itself, who seeks after it and wants to have it, simply…
+                                </p>
+                                <div class="card-divider">❧</div>
+                                    <a href="/oeuvres/le-legat-tome-i/article/i-introduction" class="card-footer">Lire l'article →</a>
+                            </div>
+                                    </div>
+
+                <div class="homepage-button-container">
+                    <a href="/articles" class="homepage-button">Voir tous les articles →</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-separator">
+    <div class="section-separator-line"></div>
+    <span class="section-separator-icon">☙✦ ✧ ✦❧</span>
+    <div class="section-separator-line"></div>
+</div>
+
+
+        <section id="oeuvres" class="homepage-section-alt">
+            <div class="homepage-background">
+                <img src="/uploads/bg_oeuvres.webp" alt="Fond Œuvres" class="homepage-image">
+                <div class="homepage-overlay"></div>
+            </div>
+
+            <div class="homepage-content">
+                <h2 class="homepage-section-title">📚 Œuvres Récentes</h2>
+
+                <div class="homepage-grid">
+                                            <div class="card-parchment">
+                                    <h2 class="card-title">
+                                    <a href="/oeuvres/le-legat-tome-i" class="card-link">
+                                        Le Légat Tome I
+                                    </a>
+                                </h2>
+                                                                                                    <p class="card-author">par epsilon</p>
+                                                                                                    <p class="card-content">
+                                    Lorem Ipsum
+&quot;Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...&quot;
+&quot;There is no one who loves pain itself, who seeks after it and wants to have it, simply b…
+                                </p>
+                                <div class="card-divider">❧</div>
+    </div>
+                                            <div class="card-parchment">
+                                    <h2 class="card-title">
+                                    <a href="/oeuvres/test-systeme" class="card-link">
+                                        test systeme
+                                    </a>
+                                </h2>
+                                                                                                    <p class="card-author">par Admin</p>
+                                                                                                    <p class="card-content">
+                                    Salut les gens!!!!…
+                                </p>
+                                <div class="card-divider">❧</div>
+    </div>
+                                            <div class="card-parchment">
+                                    <h2 class="card-title">
+                                    <a href="/oeuvres/super-dupont" class="card-link">
+                                        Super Dupont
+                                    </a>
+                                </h2>
+                                                                                                    <p class="card-author">par Admin</p>
+                                                                                                    <p class="card-content">
+                                    Super Dupont est une super-h&amp;eacute;ros en slip.…
+                                </p>
+                                <div class="card-divider">❧</div>
+    </div>
+                                    </div>
+
+                <div class="homepage-button-container">
+                    <a href="/oeuvres" class="homepage-button">Voir toutes les œuvres →</a>
+                </div>
+            </div>
+        </section>
+    <!--Footer-->
+<footer class="text-center mt-12 py-4 border-t border-gray-300 text-gray-500 text-sm">
+    <!--contenu du footer-->
+    &copy; 2025 — Le Codex d'Uuki. Tous droits réservés.
+    <br>
+    <a href="/mentions-legales" class="underline hover:text-accent">Mentions légales</a>
+    <a href="/pacte" class="underline hover:text-accent ml-4">Conditions Générales d'Utilisation</a>
+</footer>
+<!--Cookies-->
+<div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-[#3d2c20] text-white p-4 shadow-lg z-50 hidden">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <p class="text-center md:text-left">
+            Ce site utilise des cookies pour améliorer votre expérience.
+            <a href="/mentions-legales" class="underline hover:text-accent">En savoir plus</a>.
+        </p>
+        <button onclick="acceptCookies()"
+                class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full shadow transition">
+            ✅ Accepter
+        </button>
+    </div>
+</div>
+<!--AlpineJS-->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<!--Encore-->
+<script src="/build/runtime.js" defer></script><script src="/build/vendors-node_modules_tinymce_skins_ui_oxide_skin_min_css-node_modules_tinymce_icons_default_i-9522cf.js" defer></script><script src="/build/app.js" defer></script>
+<script src="/build/menuToggle.js" defer></script>
+</body>
+</html>
