@@ -39,18 +39,3 @@ tinymce.init({
     promotion: false,
     });
 
-// Registre des fonctions de filtre accessibles globalement
-window.searchFilters = {
-    filterArticles,
-};
-
-// Optionnel : Fonction générique si tu veux un fallback
-window.searchFilters.defaultFilter = function(query, containerSelector) {
-    const items = document.querySelectorAll(`${containerSelector} > div`);
-    query = query.toLowerCase();
-
-    items.forEach(item => {
-        const content = item.textContent.toLowerCase();
-        item.style.display = content.includes(query) ? '' : 'none';
-    });
-};
